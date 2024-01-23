@@ -2,8 +2,8 @@
 define('ROOT','http://localhost/EduTaskSpherepublic/public');
 
 
-define('DBNAME','edu_task_sphere');
-define('DBHOST','localhost');
-define('DBUSER','root');
-define('DBPASS','');
-define('DBDRIVER','mysql');
+define('DB_NAME','edu_task_sphere');
+define('DB_HOST','localhost');
+define('DB_USER','root');
+define('DB_PASS','');
+define('DB_DRIVER','mysql');
