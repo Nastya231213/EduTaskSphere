@@ -1,5 +1,5 @@
 <?php 
-define('ROOT','http://localhost/EduTaskSpherepublic/public');
+define('ROOT','http://localhost/EduTaskSphere/public');
 
 
 define('DB_NAME','edu_task_sphere');
