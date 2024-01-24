@@ -1,7 +1,7 @@
 
 
 <?php
-class UserModel extends Database
+class UserModel 
 {
  
     protected $table='users';

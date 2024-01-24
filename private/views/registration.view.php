@@ -62,7 +62,7 @@
               <option value="female">Female</option>
             </select>
             <div class="d-grid col-12 mx-auto">
-              <button class="btn btn-success" type="submit"><span></span> Sign up</button>
+              <button class="btn btn-success" type="submit">Sign up</button>
             </div>
             <p class="text-center mt-3">Already have an account?
               <span class="text-success">Sign in</span>
