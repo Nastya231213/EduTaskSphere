@@ -22,6 +22,8 @@ class Registration extends Controller{
                 $this->redirect("login");
 
             }
+            print_r($errors);
+            die;
             $errors=$validator->getErrors();      
         
         }

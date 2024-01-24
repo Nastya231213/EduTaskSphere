@@ -47,4 +47,35 @@ class Validation
 
         return false;
     }
+
+    public function validateTask($data){
+                $this->errors = array();
+
+        if (!preg_match('/^[a-zA-Z]*$/', $data['title']) || empty($data['title'])) {
+            $this->errors['title'] = "Letters can be in the first name";
+        }
+        if (empty($data['description']) || !esc($data['description'])) {
+            $this->errors['description'] = "Description can't be empty and contain special html chars";
+        }
+       
+        if(empty($data['deadline'])){
+            $this->errors['deadline'] = "Deadline can't be empty";
+
+        }else if(strtotime($data['deadline']) < strtotime('today')){
+            $this->errors['deadline'] = "Choose the correct deadline";
+
+        }
+
+        if(empty($data['type']) || !in_array($data['type'],TYPES)){
+            $this->errors['type'] = "Type isn't appropriate";
+        }
+        
+        if(empty($data['subject']) || !in_array($data['subject'],POSSIBLE_SUBJECTS)){
+            $this->errors['subject'] = "Subject isn't appropriate";
+        }
+        if (count($this->errors) == 0) {
+            return true;
+        }
+        return false;
+    }
 }

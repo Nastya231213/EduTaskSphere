@@ -15,10 +15,10 @@
         </div>
       <?php endif; ?>
       <div class="p-4">
-        <form method="POST" action="">
+        <form method="POST" >
 
           <div class="input-group mb-3">
-            <input type="email" name="title" class="form-control" placeholder="Title">
+            <input type="text" name="title" class="form-control" placeholder="Title">
           </div>
 
           <div class="input-group mb-3">
@@ -31,10 +31,10 @@
 
             <?php endforeach; ?>
           </select>
-          <select name="subject" class="form-select mb-3" aria-label="Default select example">
+          <select name="type" class="form-select mb-3" aria-label="Default select example">
             <option selected>Choose type</option>
-            <?php foreach (TYPES as $subject) : ?>
-              <option value="<?= $subject ?>"><?= $subject ?></option>
+            <?php foreach (TYPES as $type) : ?>
+              <option value="<?= $type ?>"><?= $type?></option>
 
             <?php endforeach; ?>
           </select>
@@ -44,7 +44,7 @@
           </div>
 
           <div class="d-grid col-12 mx-auto">
-            <button class="btn btn-info" type="submit"><span></span> Add</button>
+            <input class="btn btn-info" value="Add" type="submit">
           </div>
         
         </form>

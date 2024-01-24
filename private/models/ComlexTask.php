@@ -1,18 +1,17 @@
 
 <?php
-class ComplexTask extends Task
+class ComplexTask extends Tasks
 {
     private $subTasks = [];
+    public function __construct($description, $deadline, $subject, $type, $title, $task_id) {
+    }
+    public function addSubtask(SubTask $subtask)
+    {
+    }
+    public function removeSubtask(SubTask $subtask)
+    {
+    }
+   
 
-    public function addSubTask(SubTask $task)
-    {
-        $this->subTasks[] = $task;
-    }
 
-    public function addToDatabase()
-    {
-    }
-    public function findTaskInDatabase()
-    {
-    }
 }

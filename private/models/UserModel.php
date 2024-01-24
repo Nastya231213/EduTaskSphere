@@ -20,6 +20,8 @@ class UserModel
         return $this->model->selectOne($this->table,['email'=>$email]);
     }
 
+ 
+
     public function findUserByUrlAdress($userId){
         return $this->model->selectOne($this->table,['userId'=>$userId]);
 

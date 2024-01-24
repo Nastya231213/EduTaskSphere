@@ -1,5 +1,1 @@
-<?php $this->view('includes/navigation',['title'=>'Home']);?>
-
-<?php
-
-?>
+<?php $this->view('includes/navigation',['title'=>'Add simple task']);?>

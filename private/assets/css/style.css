@@ -78,3 +78,7 @@ textarea {
 .btn:hover {
     color: rgb(217, 252, 252) !important;
 }
+
+.container_task{
+    width:1000px;
+}

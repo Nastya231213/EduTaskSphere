@@ -34,6 +34,7 @@ class Model{
         }
         return $this->db->resultset();
     }
+    
     public function selectOne($table,$where=[]){
         $sql="SELECT * FROM $table";
         if(!empty($where)){

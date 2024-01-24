@@ -48,3 +48,13 @@ function isSignIn(){
  
 }
 
+function randomString($length=30)
+{
+  $array = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'A', 'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'Z', 'X', 'C', 'V', 'B', 'N', 'M');
+  $text = "";
+  for ($x = 0; $x < $length; $x++) {
+    $random = rand(0, 61);
+    $text .= $array[$random];
+  }
+  return $text;
+}
