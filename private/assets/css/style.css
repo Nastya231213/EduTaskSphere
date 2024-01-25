@@ -82,3 +82,6 @@ textarea {
 .container_task{
     width:1000px;
 }
+.nav-item .active_{
+    color:rgb(0, 174, 255)!important;
+}

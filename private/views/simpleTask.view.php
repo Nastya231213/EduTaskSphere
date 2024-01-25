@@ -2,7 +2,7 @@
 
 
 <div class="container mx-auto shadow rounded container_task mt-5">
-
+<center><h2>The task</h2></center>
     <div class="card-group justify-content-center">
         <?php if (isset($task)) : ?>
 
@@ -44,19 +44,36 @@
             <div class="container-fluid">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <h5> <a class="nav-link  aria-current=" page" href="">Test question</a></h5>
+                        <h5> <a class="nav-link <?= $pageTab == 'test-question' ? 'active_' : '' ?> aria-current=" href="<?= ROOT ?>/task/addSubtasks/<?= $task->task_id ?>?tab=test-question">Test question</a></h5>
                     </li>
                     <li class="nav-item">
-                        <h5> <a class="nav-link <?= $page_tab == 'classes' ? 'active' : '' ?>" href="">fd</a></h5>
+                        <h5> <a class="nav-link <?= $pageTab == 'open-ended-question' ? 'active_' : '' ?>" href="<?= ROOT ?>/task/addSubtasks/<?= $task->task_id ?>?tab=open-ended-question">Open Ended question</a></h5>
                     </li>
                     <li class="nav-item">
-                    <h5>  <a class="nav-link <?= $page_tab == 'tests' ? 'active' : '' ?>" href="">Test</a></h5>
+                        <h5> <a class="nav-link <?= $pageTab == 'multiplechoice-question' ? 'active_' : '' ?>" href="<?= ROOT ?>/task/addSubtasks/<?= $task->task_id ?>?tab=multiplechoice-question">MultipleChoice question</a></h5>
                     </li>
                 </ul>
+          <br>
+                
+                <?php
+                switch ($pageTab) {
+                    case 'test-question':
+                        include(viewsPathInc('testQuestion-tab'));
+                        break;
+                    case 'open-ended-question':
+                        include(viewsPathInc('openEndedQuestion'));
+                        break;
+                    case 'multiplechoice-question':
+                        include(viewsPathInc('multiple-choiceQuestion'));
+                        break;
+                }
+
+                ?>
 
 
             </div>
     </div>
 
 </div>
+
 <?php $this->view('includes/footer'); ?>

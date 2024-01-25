@@ -6,15 +6,7 @@ function esc($var)
   return htmlspecialchars($var);
 }
 
-function viewsPath($view)
-{
 
-  if (file_exists("../private/views/" . $view . ".inc.php")) {
-    return "../private/views/" . $view . ".inc.php";
-  } else {
-    return "../private/views/404.inc.php";
-  }
-}
 
 function getVar($key, $default = "")
 {
@@ -39,7 +31,14 @@ function getRole(){
   }
   return $role;
 }
-
+function viewsPathInc($view)
+{
+  if (file_exists("../private/views/" . $view . ".inc.php")) {
+    return "../private/views/" . $view . ".inc.php";
+  } else {
+    return "../private/views/404.inc.php";
+  }
+}
 function isSignIn(){
   if(isset($_SESSION['user'])){
     return true;

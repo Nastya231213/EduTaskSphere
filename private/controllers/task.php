@@ -33,7 +33,7 @@ class Task extends Controller{
         $this->view('createTask',['errors'=>$errors]);
     }
     function addSubtasks($id=''){
-        
+        $pageTab=isset($_GET['tab'])?$_GET['tab']:'test-question';
         if(!empty($id)){
             $userModel=new UserModel();
             $taskToFind =new SimpleTasks();
@@ -41,7 +41,7 @@ class Task extends Controller{
             $creatorOfTheTask=$userModel->findUserByUrlAdress($theCurrentTask->userId);
         }
 
-        $this->view('simpleTask',['task'=>$theCurrentTask, 'user'=>$creatorOfTheTask]);
+        $this->view('simpleTask',['task'=>$theCurrentTask, 'user'=>$creatorOfTheTask,'pageTab'=>$pageTab]);
     
     }
 }
