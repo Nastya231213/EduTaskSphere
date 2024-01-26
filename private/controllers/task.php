@@ -75,7 +75,6 @@ class Task extends Controller{
                 foreach($correctAnswersIndexes as $index){
                     $correctAnswers[]=$choices[$index-1];
                 }
-
                 $multiplechoiceQuestion=$subtaskFactory->createMultipleChoiceTask($question,$choices,$correctAnswers,$id);
                 $strategy= $multiplechoiceQuestion->getStrategy();
                 $strategy->addToDatabase($multiplechoiceQuestion);
@@ -91,5 +90,16 @@ class Task extends Controller{
 
         $this->view('simpleTask',['task'=>$theCurrentTask, 'user'=>$creatorOfTheTask,'pageTab'=>$pageTab,'message'=>$message]);
     
+    }
+
+    function display(){
+        $task=new SimpleTasks();
+        $tasks=$task->findAllTheTasks();
+        $this->view('display-task',['tasks'=>$tasks]);
+    }
+
+    function subtasks($id){
+
+
     }
 }

@@ -34,6 +34,11 @@ abstract class Tasks
     {
         return $this->model->selectOne($this->tableName, ['task_id' => $task_id]);
     }
+    public function findAllTheTasks(){
+        $database=new Database();
+    $tasks= $database->query("SELECT tasks.* , users.firstName,users.lastName from tasks INNER JOIN users ON tasks.userId=users.userId");
+        return $database->resultSet();
+    }
    
     
 }
