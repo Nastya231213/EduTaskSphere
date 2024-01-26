@@ -2,11 +2,11 @@
     <h3>Create open-ended question</h3>
 </center>
 <div class="card col-md-6 mt-4 mx-auto p-4">
-    <form>
+    <form method="POST">
         <label for="question">
             <h5>Question:</h5>
         </label>
-        <textarea name="question" class="form-control p-3 mb-2" rows="4" required></textarea>
+        <textarea name="questionMultichoice" class="form-control p-3 mb-2" rows="4" required></textarea>
   
         <label for="choice1"><h5>Choice 1:</h5></label>
         <input type="text" class="form-control" id="choice1" name="choices[]" required><br>
@@ -37,4 +37,4 @@
         <center><input type="submit" class="btn btn-primary " value="Create Question"></center>
 
     </form>
-</div>
+</div><br>s

@@ -3,7 +3,7 @@
   <div class="rounded d-flex justify-content-center">
     <div class="col-md-4 col-sm-12 shadow-lg p-5 bg-light">
       <div class="text-center">
-        <h3 class="text-info">New task</h3>
+        <h1 class="info">New task</h1>
       </div>
       <?php if (isset($errors) && count($errors) > 0) : ?>
         <div class="alert alert-danger alert-dismissible fade show" role="alert">

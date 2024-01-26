@@ -2,11 +2,11 @@
     <h3>Create test question</h3>
 </center>
 <div class="card col-md-6 mt-4 mx-auto p-4">
-    <form>
+    <form method="POST">
         <label for="question">
             <h5>Question:</h5>
         </label>
-        <textarea name="question" class="form-control p-3" rows="4" required></textarea>
+        <textarea name="questionTest" class="form-control p-3" rows="4" required></textarea>
         <label for="option1"><h5>Option 1:</h5></label>
         <input type="text" id="option1"class="form-control" name="option1" required>
 
@@ -20,7 +20,7 @@
         <input type="text"class="form-control" id="option4" name="option4" required>
         <label for="correctAnswer"><h5>Correct Answer (Option Number):</h5></label>
         <input type="number" id="correctAnswer" name="correctAnswer"class="form-control mb-2" required>
-        <center><input type="submit" class="btn btn-primary" value="Create Question"></center>
+        <center><input type="submit" class="btn btn-primary" value="Add Question"></center>
 
     </form>
 </div>

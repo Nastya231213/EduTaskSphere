@@ -2,8 +2,25 @@
 
 
 <div class="container mx-auto shadow rounded container_task mt-5">
-<center><h2>The task</h2></center>
+    <center>
+        <h2>The task</h2>
+    </center>
+    <br>
+    <div class="float-start">
+    <a  href="<?=ROOT.'/home'?>"class="btn btn-dark" >Back<i class="fas fa-long-arrow-alt-left"></i></a>
+
+    </div>
+    <br><br>
+
     <div class="card-group justify-content-center">
+        <?php if (isset($message) && $message!='') : ?>
+
+            <div class="alert alert-success mb-5" role="alert">
+                <?=$message?>
+            </div>
+        <?php endif; ?>
+        <br><br>
+        
         <?php if (isset($task)) : ?>
 
             <table class="table table-striped table-hover">
@@ -53,8 +70,8 @@
                         <h5> <a class="nav-link <?= $pageTab == 'multiplechoice-question' ? 'active_' : '' ?>" href="<?= ROOT ?>/task/addSubtasks/<?= $task->task_id ?>?tab=multiplechoice-question">MultipleChoice question</a></h5>
                     </li>
                 </ul>
-          <br>
-                
+                <br>
+
                 <?php
                 switch ($pageTab) {
                     case 'test-question':

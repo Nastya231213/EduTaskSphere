@@ -2,7 +2,7 @@
 <?php
 class SimpleTasks extends Tasks
 {
-    protected $subtask;
+    private $subtask;
  
     function __construct()
     {
@@ -12,6 +12,13 @@ class SimpleTasks extends Tasks
     {
         
     }
+    function findSubtask($id)
+    {
+        $tableName='subtask';
+       return  $this->model->selectOne($tableName,['taskId'=>$id]);
+    }
+
+    
     function removeSubtask(SubTask $subtask)
     {
         
