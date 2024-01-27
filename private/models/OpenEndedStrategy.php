@@ -15,6 +15,8 @@ class OpenEndedStrategy implements SubTaskStrategy
             $data['question']=$openEndedQuestion->getQuestion();
             $data['correctAnswer']=$openEndedQuestion->getCorrectAnswer();
             $data['taskId']=$openEndedQuestion->getTaskId();
+            $data['subtaskType']=$this->subtaskType;
+
             $data['subtaskId']=randomString();
             $table="subtask";
             $this->model->insert($table,$data);

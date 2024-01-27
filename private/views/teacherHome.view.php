@@ -24,7 +24,7 @@ if (!isSignIn()) {
 
 		</div>
 		<div class="col-md-6">
-			<a href="task" style="color: #4E4FEB" >
+			<a href="task/display" style="color: #4E4FEB" >
 				<div class="card rounded-card shadow">
 					<div class="card-body">
 						<i class="fas fa-eye fa-4x " style="color: #4E4FEB;"></i><br>

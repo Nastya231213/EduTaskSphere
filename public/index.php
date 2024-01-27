@@ -1,4 +1,4 @@
 <?php 
-session_start();
 include('../private/core/autoload.php');
+session_start();
 $app=new App();

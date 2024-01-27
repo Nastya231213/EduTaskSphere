@@ -23,9 +23,5 @@ class SimpleTasks extends Tasks
     {
         
     }
-    function updateSubtask(SubTask $subtask)
-    {
-        
-    }
-       
+   
 }

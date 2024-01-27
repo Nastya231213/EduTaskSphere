@@ -24,10 +24,11 @@ function getUserInformation($key, $default = "")
   }
   return $default;
 }
-function getRole(){
-  $role=null;
-  if(isset($_SESSION['user'])){
-    $role=$_SESSION['user']->role;
+function getRole()
+{
+  $role = null;
+  if (isset($_SESSION['user'])) {
+    $role = $_SESSION['user']->role;
   }
   return $role;
 }
@@ -39,15 +40,15 @@ function viewsPathInc($view)
     return "../private/views/404.inc.php";
   }
 }
-function isSignIn(){
-  if(isset($_SESSION['user'])){
+function isSignIn()
+{
+  if (isset($_SESSION['user'])) {
     return true;
   }
-    return false;
- 
+  return false;
 }
 
-function randomString($length=30)
+function randomString($length = 30)
 {
   $array = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'A', 'B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'Z', 'X', 'C', 'V', 'B', 'N', 'M');
   $text = "";
@@ -56,4 +57,11 @@ function randomString($length=30)
     $text .= $array[$random];
   }
   return $text;
+}
+
+function getTaskById($task_id)
+{
+  $model = new Model();
+  $tableName = 'tasks';
+  return $model->selectOne($tableName, ['task_id' => $task_id]);
 }

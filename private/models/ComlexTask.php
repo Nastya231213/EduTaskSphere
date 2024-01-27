@@ -3,15 +3,17 @@
 class ComplexTask extends Tasks
 {
     private $subTasks = [];
-    public function __construct($description, $deadline, $subject, $type, $title, $task_id) {
+    private $taskId;
+    public function __construct($id) {
+        $this->taskId=$id;
+
     }
     public function addSubtask(SubTask $subtask)
     {
+        
     }
     public function removeSubtask(SubTask $subtask)
     {
     }
-   
-
 
 }

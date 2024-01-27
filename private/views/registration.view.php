@@ -19,17 +19,17 @@
           <h3 class="text-success">Create Account</h3>
         </div>
         <?php if (count($errors) > 0) : ?>
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Errors:</strong>
-                    <?php foreach ($errors as $error) : ?>
-                        <br><?= $error ?>
-                    <?php endforeach; ?>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            <?php endif; ?>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Errors:</strong>
+            <?php foreach ($errors as $error) : ?>
+              <br><?= $error ?>
+            <?php endforeach; ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <?php endif; ?>
         <div class="p-4">
           <form method="POST" action="">
-          <div class="input-group mb-3">
+            <div class="input-group mb-3">
               <span class="input-group-text bg-success"><i class="bi bi-person-plus-fill text-white"></i></span>
               <input type="text" name="firstName" class="form-control" placeholder="First name">
             </div>
@@ -50,7 +50,7 @@
               <input type="password" name="confirmPassword" class="form-control" placeholder="confirmPassword">
             </div>
 
-            <select name="role"class="form-select mb-3" aria-label="Default select example">
+            <select name="role" class="form-select mb-3" aria-label="Default select example">
               <option selected>Role</option>
               <option value="teacher">Teacher</option>
               <option value="pupil">Pupil</option>

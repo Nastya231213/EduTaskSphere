@@ -2,6 +2,7 @@
 class MultipleChoiceStrategy implements SubTaskStrategy
 {
     private $model;
+    private $subtaskType='multiplechoice-question';
 
     public function evaluateAnswer($userAnswer, $correctAnswer)
     {
@@ -13,6 +14,8 @@ class MultipleChoiceStrategy implements SubTaskStrategy
             $data['question']=$multiplechoiceQuestion->getQuestion();
             $data['taskId']=$multiplechoiceQuestion->getTaskId();
             $data['subtaskId']=randomString();
+            $data['subtaskType']=$this->subtaskType;
+
             $table="subtask";
             $this->model->insert($table,$data);
             $choices=$multiplechoiceQuestion->getChoices();

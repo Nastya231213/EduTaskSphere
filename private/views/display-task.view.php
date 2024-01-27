@@ -21,22 +21,23 @@
 
                 <?php foreach ($tasks as $task) : ?>
                     <tr>
-
-                    <td><button class="btn  btn-info"><i class="fa fa-chevron-right"></i></button></td>
+                    <td><a class="btn btn-info" href="<?= ROOT ?>/task/subtasks/<?=$task->task_id?>"> <i class="fa fa-chevron-right"></i></a></td>
                         <td><?= $task->title ?></td>
                         <td><?=$task->description?></td>
                         <td><?=$task->deadline?></td>
 
                         <td>
-                            <a href="<?= ROOT ?>/task/<?= $task->taskId ?>">
+                            <a href="<?= ROOT ?>/task/addSubtasks/<?= $task->task_id ?>">
                                 <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
                             </a>
-                        
+                            <a href="<?= ROOT ?>/task/<?= $task->taskId ?>">
+                                <button class="btn btn-sm btn-info"><i class="fas fa-plus"></i></button>
+                            </a>
                         </td>
                     <tr>
                     <?php endforeach; ?>
                 <?php else : ?>
-                    <h4>No schools were found at this time</h4>
+                    <h4>No tasks were found at this time</h4>
                 <?php endif; ?>
         </table>
 
