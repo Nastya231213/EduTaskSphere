@@ -12,6 +12,7 @@
                 <th>Task</th>
                 <th>Description</th>
                 <th>Deadline</th>
+                <th>Actions</th>
                 <th>
                     <a href="<?= ROOT ?>/schools/add"><button class="btn btn-sm btn-info"><i class="fa fa-plus"></i> Add New</button></a>
                 </th>
@@ -30,8 +31,8 @@
                             <a href="<?= ROOT ?>/task/addSubtasks/<?= $task->task_id ?>">
                                 <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
                             </a>
-                            <a href="<?= ROOT ?>/task/<?= $task->taskId ?>">
-                                <button class="btn btn-sm btn-info"><i class="fas fa-plus"></i></button>
+                            <a href="<?= ROOT ?>/task/addPupils/<?= $task->task_id ?>">
+                                <button class="btn btn-sm btn-info"><i class="fas fa-plus"></i> Add user</button>
                             </a>
                         </td>
                     <tr>

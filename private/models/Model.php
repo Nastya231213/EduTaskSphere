@@ -1,12 +1,10 @@
 
 
 <?php
-class Model {
-    protected $db;
+class Model extends Database{
     public function __construct()
     {
-        $this->db=new Database();
-        
+        parent::__construct();
     }
 
 
@@ -26,13 +24,13 @@ class Model {
             }
         }
  
-        $this->db->query($sql);
+        $this->query($sql);
         if(!empty($where)){
             foreach($where as $key=>$value){
-                $this->db->bind(':'.$key,$value);
+                $this->bind(':'.$key,$value);
             }
         }
-        return $this->db->resultset();
+        return $this->resultset();
     }
     
     public function selectOne($table,$where=[]){
@@ -51,24 +49,24 @@ class Model {
             }
         }
  
-        $this->db->query($sql);
+        $this->query($sql);
         if(!empty($where)){
             foreach($where as $key=>$value){
-                $this->db->bind(':'.$key,$value);
+                $this->bind(':'.$key,$value);
             }
         }
-        return $this->db->single();
+        return $this->single();
     }
     public function insert($table,$data){
         $keys=implode(',',array_keys($data));
         $values=':'.implode(', :',array_keys($data));
         $sql="INSERT INTO $table ($keys) VALUES($values)";
      
-        $this->db->query($sql);
+        $this->query($sql);
         foreach($data as $key=>$value){
-            $this->db->bind(':'.$key,$value);
+            $this->bind(':'.$key,$value);
         }
-        return $this->db->execute();
+        return $this->execute();
 
     }
 }

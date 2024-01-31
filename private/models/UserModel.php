@@ -6,6 +6,7 @@ class UserModel
  
     protected $table='users';
     protected $model;
+    
 
     public function __construct()
     {
@@ -20,12 +21,17 @@ class UserModel
         return $this->model->selectOne($this->table,['email'=>$email]);
     }
 
+    public function getAllPupils(){
+        $this->model->query("SELECT * FROM users WHERE role='pupil'");
+        return $this->model->resultset();
+    }
  
 
     public function findUserByUrlAdress($userId){
         return $this->model->selectOne($this->table,['userId'=>$userId]);
 
     }
+
 
     public function insertUser($data)
     {
@@ -42,5 +48,7 @@ class UserModel
 
           return $data;
     }
+
+    
 
 }

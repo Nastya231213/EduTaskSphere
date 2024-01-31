@@ -113,4 +113,29 @@ class Task extends Controller
 
         $this->view('display-subtasks', ['subtasks' => $allSubtasksOfTheTask]);
     }
+    function sendToPupils($id=''){
+        $pageTab = isset($_GET['tab']) ? $_GET['tab'] : 'test-question';
+        if (!empty($id)) {
+            $userModel = new UserModel();
+            $taskModel = new TaskModel();
+            $theCurrentTask = $taskModel->getTaskById($id);
+               
+            $creatorOfTheTask = $userModel->findUserByUrlAdress($theCurrentTask->userId);
+            if(isset($_GET['keyToFind'])){
+                $pupils=getPupilsThatNotHaveTask($id,$_GET['keyToFind']);
+
+            }else{
+                $pupils=getPupilsThatNotHaveTask($id);
+
+            }
+     
+
+        }
+   
+
+
+        $this->view('sendToPupils', ['task' => $theCurrentTask, 'user' => $creatorOfTheTask,'pupils'=>$pupils]);
+
+    }
+
 }

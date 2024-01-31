@@ -65,3 +65,34 @@ function getTaskById($task_id)
   $tableName = 'tasks';
   return $model->selectOne($tableName, ['task_id' => $task_id]);
 }
+
+
+function getImage($gender)
+{
+  $gender = ctype_lower($gender);
+  $image_path = ASSETS . '/images/man.jpg';
+
+  if ($gender == 'female') {
+    $image_path = ASSETS . '/images/female.jpg';
+  }
+  return $image_path;
+}
+
+
+function getPupilsThatNotHaveTask($taskId,$key=''){
+   $database=new Database();
+   $adition='';
+   if(!empty($key)){
+     $adition="AND (firstName like :find || lastName like :find || email like :find )";
+   }
+   $query="SELECT * from  users WHERE NOT EXISTS (SELECT 1 FROM pupilstasks WHERE  pupilstasks.pupilId=users.userId AND pupilstasks.pupilTaskId=:taskId) AND role!='teacher'".$adition;
+   $database->query($query);
+   $database->bind('taskId',$taskId);
+   if(!empty($key)){
+    $database->bind('find',$key);
+
+   }
+   $database->execute();
+   return $database->resultset();
+
+}

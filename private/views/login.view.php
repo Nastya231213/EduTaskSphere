@@ -43,7 +43,7 @@
               <button class="btn btn-success" type="submit"><span></span> Sign in</button>
             </div>
             <p class="text-center mt-3">Don't you have an account?
-              <span class="text-success">Sign up</span>
+             <a href="<?=ROOT?>/registration"> <span class="text-success">Sign up</span></a>
             </p>
           </form>
         </div>
