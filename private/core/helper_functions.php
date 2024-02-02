@@ -79,20 +79,19 @@ function getImage($gender)
 }
 
 
-function getPupilsThatNotHaveTask($taskId,$key=''){
-   $database=new Database();
-   $adition='';
-   if(!empty($key)){
-     $adition="AND (firstName like :find || lastName like :find || email like :find )";
-   }
-   $query="SELECT * from  users WHERE NOT EXISTS (SELECT 1 FROM pupilstasks WHERE  pupilstasks.pupilId=users.userId AND pupilstasks.pupilTaskId=:taskId) AND role!='teacher'".$adition;
-   $database->query($query);
-   $database->bind('taskId',$taskId);
-   if(!empty($key)){
-    $database->bind('find',$key);
-
-   }
-   $database->execute();
-   return $database->resultset();
-
+function getPupilsThatNotHaveTask($taskId, $key = '', $offset = 0,$limit=5)
+{
+  $database = new Database();
+  $adition = '';
+  if (!empty($key)) {
+    $adition = "AND (firstName like :find || lastName like :find || email like :find )";
+  }
+  $query = "SELECT * from  users WHERE NOT EXISTS (SELECT 1 FROM pupilstasks WHERE  pupilstasks.pupilId=users.userId AND pupilstasks.pupilTaskId=:taskId) AND role!='teacher'" . $adition . " LIMIT $limit OFFSET $offset";
+  $database->query($query);
+  $database->bind('taskId', $taskId);
+  if (!empty($key)) {
+    $database->bind('find', $key);
+  }
+  $database->execute();
+  return $database->resultset();
 }

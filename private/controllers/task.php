@@ -33,6 +33,7 @@ class Task extends Controller
         }
         $this->view('createTask', ['errors' => $errors]);
     }
+
     function addSubtasks($id = '')
     {
         $message = "";
@@ -115,26 +116,37 @@ class Task extends Controller
     }
     function sendToPupils($id=''){
         $pageTab = isset($_GET['tab']) ? $_GET['tab'] : 'test-question';
+        $pagination=Pagination::getInstance();
+        $offset = $pagination->fromWhich;
+
         if (!empty($id)) {
             $userModel = new UserModel();
             $taskModel = new TaskModel();
             $theCurrentTask = $taskModel->getTaskById($id);
                
             $creatorOfTheTask = $userModel->findUserByUrlAdress($theCurrentTask->userId);
+    
+            if(count($_POST)>0){
+                $dataTaskToPupil['pupilId']=$_POST['userId'];
+                $dataTaskToPupil['pupilTaskId']=$id;
+                $dataTaskToPupil['completionStatus']="Not Started";
+    
+                $SendCommand=new SendTaskToPupil($dataTaskToPupil);
+                $invoker=new CommandInvoker();
+                $invoker->setCommand($SendCommand);
+                $invoker->executeCommand($dataTaskToPupil);
+               
+            }
             if(isset($_GET['keyToFind'])){
-                $pupils=getPupilsThatNotHaveTask($id,$_GET['keyToFind']);
+                $pupils=getPupilsThatNotHaveTask($id,$_GET['keyToFind'],$offset);
 
             }else{
-                $pupils=getPupilsThatNotHaveTask($id);
+                $pupils=getPupilsThatNotHaveTask($id,$offset);
 
             }
-     
 
         }
-   
-
-
-        $this->view('sendToPupils', ['task' => $theCurrentTask, 'user' => $creatorOfTheTask,'pupils'=>$pupils]);
+        $this->view('sendToPupils', ['task' => $theCurrentTask, 'user' => $creatorOfTheTask,'pupils'=>$pupils,'pagination'=>$pagination]);
 
     }
 

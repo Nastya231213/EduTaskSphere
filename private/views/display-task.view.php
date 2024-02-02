@@ -28,10 +28,10 @@
                         <td><?=$task->deadline?></td>
 
                         <td>
-                            <a href="<?= ROOT ?>/task/addSubtasks/<?= $task->task_id ?>">
+                            <a href="<?= ROOT ?>/task/sendToSubtasks/<?= $task->task_id ?>">
                                 <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
                             </a>
-                            <a href="<?= ROOT ?>/task/addPupils/<?= $task->task_id ?>">
+                            <a href="<?= ROOT ?>/task/sendToPupils/<?= $task->task_id ?>">
                                 <button class="btn btn-sm btn-info"><i class="fas fa-plus"></i> Add user</button>
                             </a>
                         </td>

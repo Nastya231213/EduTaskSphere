@@ -13,8 +13,5 @@ class Home extends Controller{
         $this->view("teacherHome");
         
     }
-    function add($id=''){
-        
-
-    }
+ 
 }
