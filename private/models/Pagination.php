@@ -10,10 +10,10 @@ class Pagination
     public $fromWhich = 0;
 
     public $links = array();
-    public static function getInstance( $extraPages = 1,$limit = 8)
+    public static function getInstance($extraPages = 1, $limit = 8)
     {
         if (self::$instance === null) {
-            self::$instance = new self($extraPages,$limit);
+            self::$instance = new self($extraPages, $limit);
         }
 
         return self::$instance;
@@ -41,9 +41,7 @@ class Pagination
     }
 
     public function display()
-    {
-
-?>
+    {?>
         <br class="clearfix">
         <div>
             <nav aria-label="Page navigation example">
@@ -57,6 +55,8 @@ class Pagination
             </nav>
         </div>
         <br>
+
+
 <?php
     }
 }
