@@ -69,7 +69,6 @@ function getTaskById($task_id)
 
 function getImage($gender)
 {
-  $gender = ctype_lower($gender);
   $image_path = ASSETS . '/images/man.jpg';
 
   if ($gender == 'female') {
@@ -79,7 +78,7 @@ function getImage($gender)
 }
 
 
-function getPupilsThatNotHaveTask($taskId, $key = '', $offset = 0,$limit=5)
+function getPupilsThatNotHaveTask($taskId, $key = '', $offset = 0, $limit = 5)
 {
   $database = new Database();
   $adition = '';

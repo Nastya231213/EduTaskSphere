@@ -68,7 +68,15 @@ footer .copyright a:hover {
     color: #fff;
     background-color: rgb(180, 19, 169);
 }
+.searchPupil{
+   height:100%;
+}
 
+.search-btn{
+    height:38px;
+    position:relative;
+    left:-10px;
+}
 textarea {
     resize: none;
 }

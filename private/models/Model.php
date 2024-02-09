@@ -69,5 +69,25 @@ class Model extends Database{
         return $this->execute();
 
     }
+    public function delete($table,$where=[]){
+        if(empty($where)){
+            return false;
+        }
+        $sql="DELETE FROM $table WHERE ";
+        $iterator=0;
+        foreach($where as $key=>$value){
+            $sql.=$key."=:" .$key;
+            if($iterator<(count($where)-1)){
+                $sql.=" AND ";
+            }
+            $iterator++;
+        }
+        $this->query($sql);
+        foreach($where as $key=>$value){
+            $this->bind(':'.$key,$value);
+        }
+        return $this->execute();
+
+    }
 }
 

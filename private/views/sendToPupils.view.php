@@ -107,6 +107,6 @@
 
 
 </div>
-<?=$pagination->display()?>
+<?= $pagination->display() ?>
 
 <?php $this->view('includes/footer'); ?>

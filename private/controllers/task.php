@@ -45,11 +45,11 @@ class Task extends Controller
 
             $creatorOfTheTask = $userModel->findUserByUrlAdress($theCurrentTask->userId);
         }
-        if (isset($theCurrentTask->task_id) && $taskModel->findSubtask($theCurrentTask->task_id) && $theCurrentTask->type=='Simple') {
+        if (isset($theCurrentTask->task_id) && $taskModel->findSubtask($theCurrentTask->task_id) && $theCurrentTask->type == 'Simple') {
             session_start();
 
-            $message='Simple task consists of the one subtask!';
-            $_SESSION['message']=$message;
+            $message = 'Simple task consists of the one subtask!';
+            $_SESSION['message'] = $message;
             $this->redirect('message');
         }
         if (count($_POST) > 0) {
@@ -114,40 +114,37 @@ class Task extends Controller
 
         $this->view('display-subtasks', ['subtasks' => $allSubtasksOfTheTask]);
     }
-    function sendToPupils($id=''){
+    function sendToPupils($id = '')
+    {
         $pageTab = isset($_GET['tab']) ? $_GET['tab'] : 'test-question';
-        $pagination=Pagination::getInstance();
+        $pagination = Pagination::getInstance();
         $offset = $pagination->fromWhich;
 
         if (!empty($id)) {
             $userModel = new UserModel();
             $taskModel = new TaskModel();
             $theCurrentTask = $taskModel->getTaskById($id);
-               
+
             $creatorOfTheTask = $userModel->findUserByUrlAdress($theCurrentTask->userId);
-    
-            if(count($_POST)>0){
-                $dataTaskToPupil['pupilId']=$_POST['userId'];
-                $dataTaskToPupil['pupilTaskId']=$id;
-                $dataTaskToPupil['completionStatus']="Not Started";
-    
-                $SendCommand=new SendTaskToPupil($dataTaskToPupil);
-                $invoker=new CommandInvoker();
+
+            if (count($_POST) > 0) {
+                $dataTaskToPupil['pupilId'] = $_POST['userId'];
+                $dataTaskToPupil['pupilTaskId'] = $id;
+                $dataTaskToPupil['completionStatus'] = "Not Started";
+
+                $SendCommand = new SendTaskToPupil($dataTaskToPupil);
+                $invoker = new CommandInvoker();
                 $invoker->setCommand($SendCommand);
-                $invoker->executeCommand($dataTaskToPupil);
-               
+                $invoker->executeCommand();
             }
-            if(isset($_GET['keyToFind'])){
-                $pupils=getPupilsThatNotHaveTask($id,$_GET['keyToFind'],$offset);
-
-            }else{
-                $pupils=getPupilsThatNotHaveTask($id,$offset);
-
+            if (isset($_GET['keyToFind'])) {
+                $pupils = getPupilsThatNotHaveTask($id, $_GET['keyToFind'], $offset);
+            } else {
+                $pupils = getPupilsThatNotHaveTask($id, $offset);
             }
-
         }
-        $this->view('sendToPupils', ['task' => $theCurrentTask, 'user' => $creatorOfTheTask,'pupils'=>$pupils,'pagination'=>$pagination]);
-
+        $this->view('sendToPupils', ['task' => $theCurrentTask, 'user' => $creatorOfTheTask, 'pupils' => $pupils, 'pagination' => $pagination]);
     }
 
+    
 }
