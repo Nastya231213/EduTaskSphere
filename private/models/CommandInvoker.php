@@ -8,6 +8,6 @@ class CommandInvoker {
     }
 
     public function executeCommand() {
-        $this->command->execute();
+        return $this->command->execute();
     }
 }

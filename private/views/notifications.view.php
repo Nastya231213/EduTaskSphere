@@ -1,27 +1,64 @@
 <?php $this->view('includes/navigation', ['title' => 'Notifications']); ?>
 
-<div style="display:flex;width:800px;min-height:400px;margin:auto;">
+<div class="containerForNotifications">
+    <?php if (isset($messageSuccess) || isset($messageError)) : ?>
+        <?php
+        $type = 'success';
+        $message = isset($messageSuccess) ? $messageSuccess : $messageError;
 
-    <div style="min-height:400px;flex:2.5;padding:20px;" class="shadow">
-        <div id="write_post_bar" style="color:black;">
-        
-                <div class="mt-3" id="notific" style="background-color:#ededed">
+        if (isset($messageError)) {
+            $type = 'danger';
+        }
 
-                    <span style='float:right; font-size:11px;color:#888;display:inline-block;margin-right:20px'>sdfsfdsddsffffffffsff</span>";
+        ?>
+        <?php if (isset($allNotifications) && count($allNotifications) > 0) : ?>
+            <div class="shadow notificationCard">
+                <div id="write_post_bar">
 
-                    <br>
+                    <div align="center" class="alert alert-<?= $type ?> alert-dismissible fade show col-md-6 mt-3" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+                            <use xlink:href="#check-circle-fill" />
+                        </svg>
 
-                    <span class='date'>fsdfs</span>
+                        <?= $message ?>
+                    </div>
 
+                <?php endif; ?>
+                <?php foreach ($allNotifications as $notification) : ?>
+                    <div class="mt-3 notific shadow p-3">
+                        <span class="title"><?= $notification->title ?></span>
+
+                        <span class="message"><?= $notification->message ?></span>
+
+                        <br>
+
+                        <span class='date'><?= $notification->created_at ?></span>
+                        <div align="right">
+                            <?php if ($notification->type == 'Confirmation') : ?>
+                                <form method="POST" action="<?= ROOT ?>/notification/accept/<?= $notification->sender_id ?>">
+
+                                    <button type="submit" class="btn btn-success btn-sm">Accept</button>
+
+                                <?php endif; ?>
+
+                                <button class="btn btn-danger btn-sm"><i class="fas fa-trash fa-sm"></i></button>
+                                </form>
+
+                        </div>
+
+                    </div>
 
                 </div>
-                
-        </div>
+            <?php endforeach; ?>
 
 
-    </div>
+            </div>
+        <?php else : ?>
+            <div class="mt-5 mx-auto">
+                <h2>No notifications</h2>
+
+            </div>
+
+        <?php endif ?>
 </div>
-</div>
-</body>
-
-</html>
+<?php $this->view('includes/footer') ?>

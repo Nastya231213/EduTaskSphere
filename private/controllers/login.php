@@ -19,9 +19,9 @@ class Login extends Controller
             $userWithCurrentEmail = $userModel->findUserByEmail($email);
             if ($userWithCurrentEmail && password_verify($password, $userWithCurrentEmail->password)) {
                 $_SESSION['user'] = $userWithCurrentEmail;
-                if ($userWithCurrentEmail->role == 'teacher') {
+                //if ($userWithCurrentEmail->role == 'teacher') {
                     $this->redirect("home");
-                }
+                //}
             } else {
                 $errors[] = "Incorrect email or password. Please try again.";
             }

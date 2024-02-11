@@ -83,8 +83,49 @@ class Model extends Database{
             $iterator++;
         }
         $this->query($sql);
+     
         foreach($where as $key=>$value){
             $this->bind(':'.$key,$value);
+        }
+        return $this->execute();
+
+    }
+  public function update($table, $data, $where = [])
+    {
+        if (empty($where)) {
+            return false; 
+        }
+
+        $sql = "UPDATE $table SET ";
+        $iterator = 0;
+
+        foreach ($data as $key => $value) {
+            $sql .= $key . " = :" . $key;
+            if ($iterator < (count($data) - 1)) {
+                $sql .= ", ";
+            }
+            $iterator++;
+        }
+
+        $sql .= " WHERE ";
+        $iterator = 0;
+
+        foreach ($where as $key => $value) {
+            $sql .= $key . " = :" . $key;
+            if ($iterator < (count($where) - 1)) {
+                $sql .= " AND ";
+            }
+            $iterator++;
+        }
+
+        $this->query($sql);
+       
+        foreach ($data as $key => $value) {
+            $this->bind(':' . $key, $value);
+        }
+
+        foreach ($where as $key => $value) {
+            $this->bind(':' . $key, $value);
         }
         return $this->execute();
 

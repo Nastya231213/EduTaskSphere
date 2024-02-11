@@ -2,5 +2,5 @@
 <?php 
 
 interface Observer {
-    public function sendNotification(string $message,string $title);
+    public function sendNotification(string $message,string $title,string $type);
 }

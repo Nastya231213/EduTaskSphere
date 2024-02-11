@@ -11,13 +11,16 @@ class Pupils extends Controller
         $offset = $pagination->fromWhich;
         if (isset($_SESSION['messageSuccess'])) {
             $data['messageSuccess'] = $_SESSION['messageSuccess'];
-        } else if (isset($_SESSION['messageDelete'])){
-            $data['messageDelete'] = $_SESSION['messageDelete'];
+            unset($_SESSION['messageSuccess']);
+        } else if (isset($_SESSION['messageError'])) {
+            $data['messageError'] = $_SESSION['messageError'];
+            unset($_SESSION['messageError']);
+
         }
 
         $data['pupils'] = $userModel->getAllPupilsByTeacherId($_SESSION['user']->userId);
-        $data['pagination']=$pagination;
-        $this->view("teacher'sPupilsPage",$data);
+        $data['pagination'] = $pagination;
+        $this->view("teacher'sPupilsPage", $data);
     }
 
     function addPupil()
@@ -58,10 +61,8 @@ class Pupils extends Controller
         if ($invoker->executeCommand()) {
             $_SESSION['messageSuccess'] = 'The pupil was successfully deleted from the list of your pupils';
         } else {
-            $_SESSION['messageDelete'] = 'Something goes wrong..';
+            $_SESSION['messageError'] = 'Something goes wrong..';
         }
-
-
         $this->redirect('pupils');
     }
 }
