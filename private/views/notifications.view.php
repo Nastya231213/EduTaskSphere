@@ -11,11 +11,7 @@
         }
 
         ?>
-        <?php if (isset($allNotifications) && count($allNotifications) > 0) : ?>
-            <div class="shadow notificationCard">
-                <div id="write_post_bar">
-
-                    <div align="center" class="alert alert-<?= $type ?> alert-dismissible fade show col-md-6 mt-3" role="alert">
+        <div align="center" class="alert alert-<?= $type ?> alert-dismissible fade show col-md-6 mt-3" role="alert">
                         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
                             <use xlink:href="#check-circle-fill" />
                         </svg>
@@ -24,6 +20,12 @@
                     </div>
 
                 <?php endif; ?>
+    
+        <?php if (isset($allNotifications) && count($allNotifications) > 0) : ?>
+            <div class="shadow notificationCard">
+                <div id="write_post_bar">
+
+                    
                 <?php foreach ($allNotifications as $notification) : ?>
                     <div class="mt-3 notific shadow p-3">
                         <span class="title"><?= $notification->title ?></span>
@@ -41,7 +43,7 @@
 
                                 <?php endif; ?>
 
-                                <button class="btn btn-danger btn-sm"><i class="fas fa-trash fa-sm"></i></button>
+                                <a href="notification/delete/<?=$notification->id?>"><button class="btn btn-danger btn-sm"><i class="fas fa-trash fa-sm"></i></button></a>
                                 </form>
 
                         </div>

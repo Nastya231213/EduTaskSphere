@@ -16,6 +16,7 @@ class Notification extends Controller
             unset($_SESSION['messageError']);
 
         }
+   
         $this->view("notifications",$data);
     }
     function accept($id){
@@ -32,6 +33,13 @@ class Notification extends Controller
             $_SESSION['messageError']="Something goes wrong";
         }
         $this->redirect("notification");
+
+    }
+    function delete($notificId){
+        $notificationManager=new NotificationManager();
+        $notificationManager->deleteNotificationById($notificId);
+        $this->redirect('notification');
+
 
     }
 

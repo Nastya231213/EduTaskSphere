@@ -14,7 +14,7 @@
                 <th>Deadline</th>
                 <th>Actions</th>
                 <th>
-                    <a href="<?= ROOT ?>/schools/add"><button class="btn btn-sm btn-info"><i class="fa fa-plus"></i> Add New</button></a>
+                    <a href="<?= ROOT ?>/task/add"><button class="btn btn-sm btn-info"><i class="fa fa-plus"></i> Add New</button></a>
                 </th>
 
             </tr>
@@ -27,12 +27,15 @@
                         <td><?=$task->description?></td>
                         <td><?=$task->deadline?></td>
 
-                        <td>
-                            <a href="<?= ROOT ?>/task/sendToSubtasks/<?= $task->task_id ?>">
+                        <td align="center">
+                            <a href="<?= ROOT ?>/task/edit/<?= $task->task_id ?>">
                                 <button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
                             </a>
                             <a href="<?= ROOT ?>/task/sendToPupils/<?= $task->task_id ?>">
                                 <button class="btn btn-sm btn-info"><i class="fas fa-plus"></i> Add user</button>
+                            </a>
+                            <a href="<?= ROOT ?>/task/users/<?= $task->task_id ?>">
+                                <button class="btn btn-sm btn-info"><i class="fas fa-users"></i> View user</button>
                             </a>
                         </td>
                     <tr>

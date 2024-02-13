@@ -74,7 +74,7 @@
     <form method="POST">
 
         <div class="card-group justify-content-center">
-            <?php if (is_array($pupils)) : ?>
+            <?php if (is_array($pupils) && count($pupils)>0) : ?>
                 <?php foreach ($pupils as $pupil) : ?>
 
                     <div class="card m-2 shadow-sm" style="max-width: 14rem;min-width: 14rem;">
@@ -94,7 +94,7 @@
 
                 <?php endforeach; ?>
             <?php else : ?>
-                <h4>No staff members were found at this time</h4>
+                <h4 class="mt-5 mb-5">No staff members were found at this time</h4>
             <?php endif ?>
 
         </div>

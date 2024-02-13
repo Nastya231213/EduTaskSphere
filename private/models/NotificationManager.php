@@ -17,6 +17,9 @@ class NotificationManager
     {
         $this->observer = $observer;
     }
+    public function deleteNotificationById($id){
+        return $this->model->delete($this->tableName,['id'=>$id]);
+    }
  
 
     public function notifyObserverAboutPupilAddition()
@@ -39,6 +42,7 @@ class NotificationManager
     {
         return $this->model->select($this->tableName,['receiver_id'=>$userId]);
     }
+
     public function deleteNotificationOfTheTeacher($senderId){
         $receiverId=$_SESSION['user']->userId;
         return $this->model->delete($this->tableName,['receiver_id'=>$receiverId,'sender_id'=>$senderId]);

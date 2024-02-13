@@ -49,7 +49,7 @@
 
             <?php endforeach; ?>
         <?php else : ?>
-            <h4 class="mt-4 text-warning">You don't have any pupils</h4>
+            <h4 class="mt-4 ">You don't have any pupils</h4>
         <?php endif ?>
 
     </div>

@@ -35,19 +35,9 @@ if (!isSignIn()) {
 			</a>
 		</div>
 
+
+
 		<div class="col-md-6 mt-3">
-			<a href="" style="color: #A66CFF;" >
-				<div class="card rounded-card shadow">
-					<div class="card-body">
-						<i class="fas fa-users fa-4x" fa-3x" style="color: #A66CFF;"></i><br>
-						<h2>Participants in the tasks </h4>
-					</div>
-
-				</div>
-			</a>
-		</div>
-
-		<div class="col-md-3 mt-3">
 			<a href="pupils" style="color: #A66CFF;" >
 				<div class="card rounded-card shadow">
 					<div class="card-body">
