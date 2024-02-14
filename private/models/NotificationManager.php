@@ -28,16 +28,25 @@ class NotificationManager
         $message = "Teacher $teacherId has requested to add a new pupil.";
         $title = "Pupil Addition Request";
         $type = self::typesOfNotifications[1];
-        $this->observer->sendNotification($message, $title, $type);
+        return $this->notify($message,$title,$type);
     }
     public function notifyAboutAcception(){
         $pupilId = $_SESSION['user']->userId;
         $message = "Pupil $pupilId has accepted the request.";
         $title = "Pupil Addition Accepted";
-        $type = self::typesOfNotifications[2]; 
-        $this->observer->sendNotification($message, $title, $type);
-        
+        return $this->notify($message,$title, self::typesOfNotifications[2]);
     }
+    private function notify($message,$title,$type){
+return  $this->observer->sendNotification($message, $title, $type);
+    }
+    public function notifyRejection(){
+        $pupilId = $_SESSION['user']->userId;
+        $message = "Pupil $pupilId has rejected the request.";
+        $title = "Pupil Rejection";
+        return $this->notify($message,$title,self::typesOfNotifications[0]);
+
+    }
+
     public function getAllNotifications($userId)
     {
         return $this->model->select($this->tableName,['receiver_id'=>$userId]);

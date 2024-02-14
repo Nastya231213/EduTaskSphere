@@ -3,15 +3,16 @@
 
 
 <div class="container mx-auto shadow mt-5 p-2 container_task ">
-<?php $numberOfSubtasks = 1; ?>
+    <?php $numberOfSubtasks = 1; ?>
+    <a href="<?= isset($_SERVER['HTTP_REFERER']) ? htmlspecialchars($_SERVER['HTTP_REFERER']) : '#' ?>" class="btn btn-outline-dark text-dark">Back <i class="fas fa-backward"></i></a>
 
     <?php foreach ($subtasks as $subtask) : ?>
-          
+
         <div class="card rounded col-md-6 mt-5 mx-auto p-3 ">
             <h3 align="center"> Subtask <?= $numberOfSubtasks++ ?></h3>
             <?php $type = $subtask->subtaskType; ?>
             <?php if ($type == 'test-question' || $type == 'multiplechoice-question') : ?>
-                  
+
                 <textarea name="questionTest" readonly class="form-control p-3" rows="4" required><?= $subtask->question ?></textarea>
 
                 <?php $i = 1; ?>
@@ -23,10 +24,12 @@
                 <?php endforeach; ?>
 
             <?php elseif ($subtask->subtaskType == 'open-ended-question') : ?>
-                <textarea class="form-control p-3 mb-2" rows="3" readonly ><?= $subtask->question?></textarea>
+                <textarea class="form-control p-3 mb-2" rows="3" readonly><?= $subtask->question ?></textarea>
 
             <?php endif ?>
-            <button type="button" class=" col-md-3 btn btn-sm btn-info mx-auto mt-3">Edit</button>
+            <?php if (isset($role) && $role == 'teacher') : ?>
+                <button type="button" class=" col-md-3 btn btn-sm btn-info mx-auto mt-3">Edit</button>
+            <?php endif; ?>
         </div>
     <?php endforeach ?>
     <br><br>

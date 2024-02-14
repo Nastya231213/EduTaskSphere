@@ -7,9 +7,6 @@ class Task extends Controller
 
     function index()
     {
-
-
-        $this->view("create task");
     }
 
     function add()
@@ -102,23 +99,30 @@ class Task extends Controller
 
     function display()
     {
-        $task = new SimpleTasks();
-        $tasks = $task->findAllTheTasks();
-        $this->view('display-task', ['tasks' => $tasks]);
+
+
+        $userId = $_SESSION['user']->userId;
+        $data['role'] = getUserType();
+        $taskModel = new TaskModel();
+        //get message from the session if there is present it
+        $data = getMessage($data);
+        $data['tasks'] = $taskModel->getTasksForDisplaying($data['role'], $userId);
+        $this->view('display-task', $data);
     }
 
     function subtasks($id = '')
     {
         $taskModel = new TaskModel();
         $allSubtasksOfTheTask = $taskModel->getAllSubtasks($id);
+        $userType = getUserType();
 
-        $this->view('display-subtasks', ['subtasks' => $allSubtasksOfTheTask]);
+        $this->view('display-subtasks', ['subtasks' => $allSubtasksOfTheTask, 'role' => $userType]);
     }
     function sendToPupils($id = '')
     {
         $pagination = Pagination::getInstance();
         $offset = $pagination->fromWhich;
-        $currentTeacherId=$_SESSION['user']->userId;
+        $currentTeacherId = $_SESSION['user']->userId;
 
         if (!empty($id)) {
             $userModel = new UserModel();
@@ -129,7 +133,7 @@ class Task extends Controller
 
             if (count($_POST) > 0) {
                 $dataTaskToPupil['pupilId'] = $_POST['userId'];
-                $dataTaskToPupil['pupilTaskId'] = $id;
+                $dataTaskToPupil['taskId'] = $id;
                 $dataTaskToPupil['completionStatus'] = "Not Started";
                 $SendCommand = new SendTaskToPupil($dataTaskToPupil);
                 $invoker = new CommandInvoker();
@@ -145,8 +149,35 @@ class Task extends Controller
         $this->view('sendToPupils', ['task' => $theCurrentTask, 'user' => $creatorOfTheTask, 'pupils' => $pupils, 'pagination' => $pagination]);
     }
 
-    function users(){
+    function accept($taskId)
+    {
 
+        $pupilId = $_SESSION['user']->userId;
+        $inProgressState = new InProgressState();
+
+        if ($inProgressState->updateState($taskId, $pupilId)) {
+            $_SESSION['messageSuccess'] = "Successfully the task was accepted";
+        } else {
+            $_SESSION['messageError'] = "Something goes wrong..";
+        }
+
+        $this->redirect('task/display');
     }
-    
+    function reject($taskId)
+    {
+        $pupil =new User($_SESSION['user']->userId);
+        $deleteCommand = new DeleteTaskFromPupil($taskId,$pupil->getUserId());
+        $invoker = new CommandInvoker();
+        $invoker->setCommand($deleteCommand);
+        $invoker->executeCommand();
+        $notificationManger=new NotificationManager();
+        $notificationManger->addObserver($pupil);
+        $notificationManger->notifyRejection();
+        if ($invoker->executeCommand()) {
+            $_SESSION['messageSuccess'] = "Successfully the task was rejected";
+        } else {
+            $_SESSION['messageError'] = "Something goes wrong..";
+        }
+        $this->redirect('task/display');
+    }
 }

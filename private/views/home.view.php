@@ -11,7 +11,7 @@ if (!isSignIn()) {
 <div class="container p-3">
     <div class="row">
         <div class="col-md-6 ">
-            <a href="#">
+            <a href="<?=ROOT?>/task/display">
                 <div class="card rounded-card shadow ">
                     <div class="card-body ">
                         <i class="fas fa-tasks fa-4x card_blue"></i><br>
@@ -27,7 +27,7 @@ if (!isSignIn()) {
             <a href="#" style="color: #4E4FEB">
                 <div class="card rounded-card shadow">
                     <div class="card-body">
-                        <i class="fas fa-eye fa-4x " style="color: #4E4FEB;"></i><br>
+                        <i class="fas fa-check fa-4x" style="color: #4E4FEB;"></i><br>
                         <h2>Completed tasks</h2>
                     </div>
 

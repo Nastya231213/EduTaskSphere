@@ -7,7 +7,17 @@ function esc($var)
 }
 
 
-
+function getMessage($data)
+{
+  if (isset($_SESSION['messageSuccess'])) {
+    $data['messageSuccess'] = $_SESSION['messageSuccess'];
+    unset($_SESSION['messageSuccess']);
+  } else if (isset($_SESSION['messageError'])) {
+    $data['messageError'] = $_SESSION['messageError'];
+    unset($_SESSION['messageError']);
+  }
+  return $data;
+}
 function getVar($key, $default = "")
 {
 
@@ -47,6 +57,13 @@ function isSignIn()
   }
   return false;
 }
+function getUserType()
+{
+  if (isset($_SESSION['user'])) {
+    return $_SESSION['user']->role;
+  }
+  return null;
+}
 
 function randomString($length = 30)
 {
@@ -78,9 +95,9 @@ function getImage($gender)
 }
 
 
-function getPupilsThatNotHaveTask($taskId,$teacherId, $key = '', $offset = 0, $limit = 5)
+function getPupilsThatNotHaveTask($taskId, $teacherId, $key = '', $offset = 0, $limit = 5)
 {
-  
+
   $database = new Database();
   $adition = '';
   if (!empty($key)) {
@@ -88,7 +105,7 @@ function getPupilsThatNotHaveTask($taskId,$teacherId, $key = '', $offset = 0, $l
   }
   $query = "SELECT * from  users WHERE NOT EXISTS 
   (SELECT 1 FROM pupilstasks WHERE  pupilstasks.pupilId=users.userId 
-  AND pupilstasks.pupilTaskId=:taskId)  AND 
+  AND pupilstasks.taskId=:taskId)  AND 
   EXISTS(SELECT 1 FROM teacher_pupil_relation WHERE teacher_pupil_relation.pupil_id=users.userId AND teacher_id=:teacher_id)
   " . $adition . " LIMIT $limit OFFSET $offset";
   $database->query($query);

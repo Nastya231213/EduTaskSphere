@@ -28,9 +28,12 @@
                     
                 <?php foreach ($allNotifications as $notification) : ?>
                     <div class="mt-3 notific shadow p-3">
-                        <span class="title"><?= $notification->title ?></span>
+                        <span class="title"><?= $notification->title ?>    <?php if($notification->type=='Alert'):?>
+                            <i class="fas fa-exclamation-circle text-danger"></i> 
+                        <?php endif?></span>
 
-                        <span class="message"><?= $notification->message ?></span>
+                        <span class="message"><?= $notification->message ?>
+                    </span>
 
                         <br>
 

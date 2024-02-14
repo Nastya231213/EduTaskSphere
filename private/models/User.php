@@ -1,6 +1,6 @@
 
 <?php
-
+//Concrete Observer
 class User implements Observer
 {
     private $id;
@@ -29,5 +29,8 @@ class User implements Observer
         $tableName="teacher_pupil_relation";
         $pupilId=$_SESSION['user']->userId;
        return $this->model->update($tableName,['status'=>'aссepted'],['teacher_id'=>$teacherId,'pupil_id'=>$pupilId]);
+    }
+    public function getUserId(){
+        return $this->id;
     }
 }

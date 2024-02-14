@@ -9,17 +9,13 @@ class Pupils extends Controller
         $userModel = new UserModel();
         $pagination = Pagination::getInstance();
         $offset = $pagination->fromWhich;
-        if (isset($_SESSION['messageSuccess'])) {
-            $data['messageSuccess'] = $_SESSION['messageSuccess'];
-            unset($_SESSION['messageSuccess']);
-        } else if (isset($_SESSION['messageError'])) {
-            $data['messageError'] = $_SESSION['messageError'];
-            unset($_SESSION['messageError']);
 
-        }
 
         $data['pupils'] = $userModel->getAllPupilsByTeacherId($_SESSION['user']->userId);
         $data['pagination'] = $pagination;
+
+        $data=getMessage($data);
+
         $this->view("teacher'sPupilsPage", $data);
     }
 

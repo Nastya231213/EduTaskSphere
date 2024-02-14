@@ -16,5 +16,5 @@ class SendTaskToPupil implements Command{
         $this->model->insert($this->tableName,$this->taskData);
 
     }
-
+ 
 }

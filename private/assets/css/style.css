@@ -95,7 +95,8 @@ textarea {
 }
 
 .container_task {
-    width: 1000px;
+    min-width: 1000px;
+    
 }
 
 .nav-item .active_ {

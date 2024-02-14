@@ -10,8 +10,14 @@ abstract class Tasks
     protected $model;
 
     protected $tableName = "tasks";
+    private $state;
 
     abstract public  function addSubtask(SubTask $subtask);
+    public function __construct()
+    {
+        $this->model=new Model();
+
+    }
 
     public function addToDatabase($description, $deadline, $subject, $type, $title, $task_id, $userId)
     {
@@ -19,7 +25,6 @@ abstract class Tasks
         $data['task_id'] = $task_id;
         $data['description'] = $description;
         $data['title'] = $title;
-
         $data['deadline'] = $deadline;
         $data['created_at'] = date("Y-m-d H:i:s");
         $data['subject'] = $subject;
@@ -29,13 +34,9 @@ abstract class Tasks
 
         $this->model->insert($this->tableName, $data);
     }
+    
 
-    public function findAllTheTasks()
-    {
-        $database = new Database();
-        $tasks = $database->query("SELECT tasks.* , users.firstName,users.lastName from tasks INNER JOIN users ON tasks.userId=users.userId");
-        return $database->resultSet();
-    }
 
-   
+
+
 }

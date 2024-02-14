@@ -7,8 +7,9 @@
     </center>
     <br>
     <div class="float-start">
-        <a href="<?= ROOT . '/home' ?>" class="btn btn-dark">Back<i class="fas fa-long-arrow-alt-left"></i></a>
-
+        <a href="<?= isset($_SERVER['HTTP_REFERER']) ? htmlspecialchars($_SERVER['HTTP_REFERER']) : '#' ?>" class="btn btn-outline-dark text-dark">
+            Back <i class="fas fa-backward"></i>
+        </a>
     </div>
     <br><br>
 
@@ -74,7 +75,7 @@
     <form method="POST">
 
         <div class="card-group justify-content-center">
-            <?php if (is_array($pupils) && count($pupils)>0) : ?>
+            <?php if (is_array($pupils) && count($pupils) > 0) : ?>
                 <?php foreach ($pupils as $pupil) : ?>
 
                     <div class="card m-2 shadow-sm" style="max-width: 14rem;min-width: 14rem;">

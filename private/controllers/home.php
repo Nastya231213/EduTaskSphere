@@ -10,7 +10,7 @@ class Home extends Controller{
         if(!isSignIn()){
             $this->redirect('login');
         }
-        $typeOfUser=$_SESSION['user']->role;
+        $typeOfUser=getUserType();
         if($typeOfUser=='teacher'){
             $this->view("teacherHome");
 
