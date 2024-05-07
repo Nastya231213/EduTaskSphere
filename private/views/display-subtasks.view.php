@@ -29,6 +29,17 @@
             <?php endif ?>
             <?php if (isset($role) && $role == 'teacher') : ?>
                 <button type="button" class=" col-md-3 btn btn-sm btn-info mx-auto mt-3">Edit</button>
+            <?php elseif (isset($role) && $role == 'pupil') : ?>
+
+                <?php if (isset($subtask->answer->answer_option)) : ?>
+                    <h5 align="center" class="mt-3">You have chosen the option with number:</h4>
+
+                    <input type="number" value="<?= $subtask->answer->answer_option ?>" class="form-control mb-2 mt-3"  readonly>
+                <?php elseif (isset($subtask->answer->answer_text)) : ?>
+                    <h5 align="center" class="mt-3">Your answer:</h4>
+
+                    <textarea value="<?= $subtask->answer->answer_text ?>" class="form-control p-3 mb-2" rows="3" readonly></textarea>
+                <?php endif; ?>
             <?php endif; ?>
         </div>
     <?php endforeach ?>

@@ -47,12 +47,11 @@ class Validation
 
         return false;
     }
-
     public function validateTask($data){
                 $this->errors = array();
 
-        if (!preg_match('/^[a-zA-Z]*$/', $data['title']) || empty($data['title'])) {
-            $this->errors['title'] = "Letters can be in the first name";
+        if (!preg_match('/^[a-zA-Z\s]*$/', $data['title']) || empty($data['title'])) {
+            $this->errors['title'] = "Only letters can be in the title";
         }
         if (empty($data['description']) || !esc($data['description'])) {
             $this->errors['description'] = "Description can't be empty and contain special html chars";

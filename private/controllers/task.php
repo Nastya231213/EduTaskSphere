@@ -113,11 +113,23 @@ class Task extends Controller
     function subtasks($id = '')
     {
         $taskModel = new TaskModel();
-        $allSubtasksOfTheTask = $taskModel->getAllSubtasks($id);
         $userType = getUserType();
+        $flag = false;
+
+        if ($userType == 'pupil') {
+            $pupilId = $_SESSION['user']->userId;
+            $flag = true;
+            $allSubtasksOfTheTask = $taskModel->getAllSubtasks($id, $flag, $pupilId);
+
+        }else{
+            $allSubtasksOfTheTask = $taskModel->getAllSubtasks($id, $flag);
+
+        }
 
         $this->view('display-subtasks', ['subtasks' => $allSubtasksOfTheTask, 'role' => $userType]);
     }
+
+
     function sendToPupils($id = '')
     {
         $pagination = Pagination::getInstance();
@@ -163,14 +175,15 @@ class Task extends Controller
 
         $this->redirect('task/display');
     }
-    function reject($taskId)
+    function reject($taskId, $userId)
     {
-        $pupil =new User($_SESSION['user']->userId);
-        $deleteCommand = new DeleteTaskFromPupil($taskId,$pupil->getUserId());
+
+        $pupil = new User($userId);
+        $deleteCommand = new DeleteTaskFromPupil($taskId, $_SESSION['user']->userId);
         $invoker = new CommandInvoker();
         $invoker->setCommand($deleteCommand);
         $invoker->executeCommand();
-        $notificationManger=new NotificationManager();
+        $notificationManger = new NotificationManager();
         $notificationManger->addObserver($pupil);
         $notificationManger->notifyRejection();
         if ($invoker->executeCommand()) {
@@ -179,5 +192,54 @@ class Task extends Controller
             $_SESSION['messageError'] = "Something goes wrong..";
         }
         $this->redirect('task/display');
+    }
+
+    function solved()
+    {
+        $userModel = new UserModel();
+
+
+
+        $data['pupils'] = $userModel->getAllPupilsByTeacherId($_SESSION['user']->userId);
+        foreach ($data['pupils'] as $pupil) {
+            $userSolutions = $userModel->getAllSolutionsToTask($pupil->userId);
+            foreach ($userSolutions as $theUserSolution) {
+                $data['solutions'][] = $theUserSolution;
+                
+            }
+        }
+
+        $this->view('solvedTasks', $data);
+    }
+    function answer($answerId){
+      $answerModel=new AnswerModel();
+      $answer=$answerModel->getAnswer($answerId);
+
+    }
+    function perfom($taskId, $save = '')
+    {
+
+        $taskModel = new TaskModel();
+        $userModel = new UserModel();
+        $pupilId = $_SESSION['user']->userId;
+
+        $theCurrentTask = $taskModel->getTaskById($taskId);
+        if ($taskModel->isCompletedTaskByPupil($taskId, $pupilId)) {
+            $_SESSION['messageError'] = "The task has already been done!";
+            $this->redirect('task/display');
+        } else {
+            $allSubtasksOfTheTask = $taskModel->getAllSubtasks($taskId);
+            $creatorOfTheTask = $userModel->findUserByUrlAdress($theCurrentTask->userId);
+            if (count($_POST) > 0) {
+                $_POST['pupilId'] = $pupilId;
+                $taskModel->addAnswersToTask($allSubtasksOfTheTask, $_POST);
+                if (empty($save)) {
+                    $completedState = new CompletedState();
+                    $completedState->updateState($theCurrentTask->task_id, $pupilId);
+                }
+            }
+
+            $this->view('perform_task', ['task' => $theCurrentTask, 'user' => $creatorOfTheTask, 'subtasks' => $allSubtasksOfTheTask]);
+        }
     }
 }

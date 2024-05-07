@@ -49,6 +49,17 @@ if (!isSignIn()) {
 			</a>
 		</div>
 
+		<div class="col-md-3 mt-3">
+			<a href="task/solved" style="color: #4E4FEB" >
+				<div class="card rounded-card shadow">
+					<div class="card-body">
+						<i class="fas fa-check fa-4x " style="color: #4E4FEB;"></i><br>
+						<h2>Done tasks</h2>
+					</div>
+
+				</div>
+			</a>
+		</div>
 
 		<div class="col-md-3 mt-3">
 			<a href="logout" >

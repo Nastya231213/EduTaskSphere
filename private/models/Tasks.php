@@ -34,9 +34,5 @@ abstract class Tasks
 
         $this->model->insert($this->tableName, $data);
     }
-    
-
-
-
 
 }

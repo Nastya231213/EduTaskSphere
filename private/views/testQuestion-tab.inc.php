@@ -14,7 +14,7 @@
         <input type="text" class="form-control" id="option2" name="option2" required>
 
         <label for="option3"><h5>Option 3:</h5></label>
-        <input type="text" class="form-control" id="option3" name="option3" required>
+        <input type="text" class="form-control" id="option3"name="option3" required>
 
         <label for="option4"><h5>Option 4:</h5></label>
         <input type="text"class="form-control" id="option4" name="option4" required>

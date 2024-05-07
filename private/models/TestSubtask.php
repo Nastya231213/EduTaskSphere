@@ -1,6 +1,6 @@
 
 <?php
-class TestTask implements SubTask {
+class TestSubtask implements SubTask {
     private $question;
     private $correctAnswer;
     private $strategy;

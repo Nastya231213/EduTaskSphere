@@ -18,10 +18,6 @@ class SimpleTasks extends Tasks
        return  $this->model->selectOne($tableName,['taskId'=>$id]);
     }
 
-    
-    function removeSubtask(SubTask $subtask)
-    {
-        
-    }
+  
    
 }

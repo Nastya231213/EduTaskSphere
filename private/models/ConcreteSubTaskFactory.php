@@ -1,8 +1,8 @@
 
 <?php
 class ConcreteSubTaskFactory implements SubTaskFactory {
-    public function createTestTask($question, $correctAnswer,$choices,$taskId): TestTask {
-        return new TestTask($question, $correctAnswer,$choices,$taskId);
+    public function createTestTask($question, $correctAnswer,$choices,$taskId): TestSubtask {
+        return new TestSubtask($question, $correctAnswer,$choices,$taskId);
     }
 
     public function createOpenEndedTask($question, $correctAnswer,$taskId): SubTask {

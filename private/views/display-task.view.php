@@ -21,7 +21,7 @@
                         $type = 'danger';
                     }
                     ?>
-                 <div class="alert alert-<?= $type ?> alert-dismissible fade show col-md-6 mt-3" role="alert">
+                 <div class="alert alert-<?= $type ?> alert-dismissible fade show mt-3 mx-auto text-center col-md-4" role="alert">
                      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
                          <use xlink:href="#check-circle-fill" />
                      </svg>
@@ -37,6 +37,7 @@
                      <th>Deadline</th>
                      <?php if ($role == 'pupil') : ?>
                          <th>Teacher</th>
+                         <th>Status</th>
 
                      <?php endif; ?>
                      <th>Actions</th>
@@ -57,7 +58,7 @@
                              <td><?= $task->deadline ?></td>
                              <?php if ($role == 'pupil') : ?>
                                  <td><?= $task->firstName ?> <?= $task->lastName ?></td>
-
+                              <td> <?=$task->completionStatus?></td>   
                              <?php endif ?>
                              <td>
                                  <?php if ($role == 'teacher') : ?>
@@ -76,7 +77,7 @@
                                          <a href="<?= ROOT ?>/task/accept/<?= $task->task_id ?>">
                                              <button class="btn btn-sm btn-success"><i class="fa fa-check"></i> Accept</button>
                                          </a>
-                                         <a href="<?= ROOT ?>/task/reject/<?= $task->task_id ?>">
+                                         <a href="<?= ROOT ?>/task/reject/<?= $task->task_id ?>/<?= $task->userId ?>">
                                              <button class="btn btn-sm btn-danger"><i class="fa fa-times"></i> Reject</button>
                                          </a>
                                      <?php else : ?>
@@ -84,6 +85,7 @@
                                          <a href="<?= ROOT ?>/task/perfom/<?= $task->task_id ?>">
                                              <button class="btn btn-sm btn-info"> Perform the task</button>
                                          </a>
+                                      
                                      <?php endif ?>
                                  <?php endif; ?>
                              </td>
