@@ -1,6 +1,21 @@
 <?php
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  include('C:/xampp/htdocs/EduTaskSphere/private/models/Interpreter.php');
+  include('C:/xampp/htdocs/EduTaskSphere/private/models/DeadlineFilter.php');
+  include('C:/xampp/htdocs/EduTaskSphere/private/models/SubjectFilter.php');
+  include('C:/xampp/htdocs/EduTaskSphere/private/models/SearchKeyFilter.php');
 
+
+  $searchKey = $_POST['search'];
+  $subject = $_POST['subject'];
+  $deadline = $_POST['deadline'];
+
+  $filteredTasks = filterTasks(json_decode($_POST['tasks']), $subject, $deadline, $searchKey);
+  $role = $_POST['role'];
+  responseForFiltering($role,$filteredTasks);
+  
+}
 function esc($var)
 {
   return htmlspecialchars($var);
@@ -117,4 +132,92 @@ function getPupilsThatNotHaveTask($taskId, $teacherId, $key = '', $offset = 0, $
   }
   $database->execute();
   return $database->resultset();
+}
+function filterTasks($tasks, $subject, $deadline, $searchKey)
+{
+
+  $filteredTasks = $tasks;
+
+  if ($deadline !== null && $deadline !== '') {
+    $deadlineFilter = new DeadlineFilter($deadline);
+    try {
+      $filteredTasks = $deadlineFilter->interpret($filteredTasks);
+    } catch (InvalidArgumentException $e) {
+      echo $e->getMessage();
+      return $tasks;
+    }
+  }
+  if ($subject !== null && $subject !== '') {
+
+    $subjectFilter = new SubjectFilter($subject);
+    try {
+      $filteredTasks = $subjectFilter->interpret($filteredTasks);
+    } catch (InvalidArgumentException $e) {
+      echo $e->getMessage();
+      return $tasks;
+    }
+  }
+
+  if ($searchKey !== null && $searchKey !== '') {
+
+    $searchKeyFilter = new SearchKeyFilter($searchKey);
+    try {
+      $filteredTasks = $searchKeyFilter->interpret($filteredTasks);
+    } catch (InvalidArgumentException $e) {
+      echo $e->getMessage();
+      return $tasks;
+    }
+  }
+  return $filteredTasks;
+}
+
+function responseForFiltering($role,$filteredTasks){
+  $htmlOutput = '';
+
+  $htmlOutput .= '<tr>';
+  $htmlOutput .= '<th>Details</th>';
+  $htmlOutput .= '<th>Task</th>';
+  $htmlOutput .= '<th>Description</th>';
+  $htmlOutput .= '<th>Deadline</th>';
+  if ($role == 'pupil') {
+    $htmlOutput .= '<th>Teacher</th>';
+    $htmlOutput .= '<th>Status</th>';
+  }
+  $htmlOutput .= '<th>Actions</th>';
+  if ($role == 'teacher') {
+    $htmlOutput .= '<th><a href="' . ROOT . '/task/add"><button class="btn btn-sm btn-info"><i class="fa fa-plus"></i> Add New</button></a></th>';
+  }
+  $htmlOutput .= '</tr>';
+  if (!empty($filteredTasks)) {
+
+
+    foreach ($filteredTasks as $task) {
+      $htmlOutput .= '<tr>';
+      $htmlOutput .= '<td><a class="btn btn-info" href="' . ROOT . '/task/subtasks/' . $task->task_id . '"><i class="fa fa-chevron-right"></i></a></td>';
+      $htmlOutput .= '<td>' . $task->title . '</td>';
+      $htmlOutput .= '<td>' . $task->description . '</td>';
+      $htmlOutput .= '<td>' . $task->deadline . '</td>';
+      if ($role == 'pupil') {
+        $htmlOutput .= '<td>' . $task->firstName . ' ' . $task->lastName . '</td>';
+        $htmlOutput .= '<td>' . $task->completionStatus . '</td>';
+      }
+      $htmlOutput .= '<td>';
+      if ($role == 'teacher') {
+        $htmlOutput .= '<a href="' . ROOT . '/task/edit/' . $task->task_id . '"><button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button></a>';
+        $htmlOutput .= '<a href="' . ROOT . '/task/sendToPupils/' . $task->task_id . '"><button class="btn btn-sm btn-info"><i class="fas fa-plus"></i> Add user</button></a>';
+        $htmlOutput .= '<a href="' . ROOT . '/task/users/' . $task->task_id . '"><button class="btn btn-sm btn-info"><i class="fas fa-users"></i> View users</button></a>';
+      } else  if ($task->completionStatus == 'Not Started') {
+        $htmlOutput .= '<a href="' . ROOT . '/task/accept/' . $task->task_id . '"><button class="btn btn-sm btn-success"><i class="fa fa-check"></i> Accept</button></a>';
+        $htmlOutput .= '<a href="' . ROOT . '/task/reject/' . $task->task_id . '/' . $task->userId . '"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i> Reject</button></a>';
+      } else {
+        $htmlOutput .= '<p class="text-success">The task is accepted.</p>';
+        $htmlOutput .= '<a href="' . ROOT . '/task/perfom/' . $task->task_id . '"><button class="btn btn-sm btn-info"> Perform the task</button></a>';
+      }
+      $htmlOutput .= '</td>';
+      $htmlOutput .= '</tr>';
+    }
+  } else {
+    $htmlOutput .= '<tr><td colspan="6">No tasks were found at this time</td></tr>';
+  }
+  echo $htmlOutput;
 }

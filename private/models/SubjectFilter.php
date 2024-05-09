@@ -11,7 +11,7 @@ class SubjectFilter implements Interpreter {
              throw new InvalidArgumentException('Tasks must be provided as an array of tasks');
         }
         return array_filter($tasks, function($task) {
-            return $task->getSubject() === $this->subject;
+            return $task->subject === $this->subject;
         });
     }
 }

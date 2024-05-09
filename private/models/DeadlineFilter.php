@@ -11,9 +11,10 @@ class DeadlineFilter implements Interpreter {
         if (!is_array($tasks) || empty($tasks) ) {
             throw new InvalidArgumentException('Invalid tasks array.');
         }
+  
 
         return array_filter($tasks, function($task) {
-            return $task->getDeadline() <= $this->deadline;
+            return $task->deadline <= $this->deadline;
         });
     }
 

@@ -1,6 +1,7 @@
 <?php 
 define('ROOT','http://localhost/EduTaskSphere/public');
 define('ASSETS','http://localhost/EduTaskSphere/private/assets');
+define('MODEL','http://localhost/EduTaskSphere/private/models');
 
 define('DB_NAME','edu_task_sphere');
 define('DB_HOST','localhost');
