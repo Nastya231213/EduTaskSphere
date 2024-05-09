@@ -2,6 +2,9 @@
 
 
  <div class="container mx-auto shadow mt-5 container_task ">
+ <a href="<?= ROOT ?>/home" class="btn btn-outline-dark text-dark mb-2">
+                 Back <i class="fas fa-backward"></i>
+             </a>
      <div class="text-center">
          <h2 class="mb-3  py-4"><?php echo $role == 'teacher' ? 'Tasks created by you' : 'Tasks that were sent to you' ?></h2>
      </div>
@@ -46,9 +49,7 @@
      <div class="card-group ">
          <div class="card-body">
 
-             <a href="<?= ROOT ?>/home" class="btn btn-outline-dark text-dark mb-2">
-                 Back <i class="fas fa-backward"></i>
-             </a>
+      
              <?php if (isset($messageSuccess) || isset($messageError)) : ?>
                  <?php
                     $type = 'success';

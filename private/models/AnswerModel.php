@@ -10,7 +10,7 @@ class AnswerModel{
     {
         $this->model=new Model();
     }
-    function getAnswer($answerId){
+    function getAnswerBySubtaskId($answerId){
         return $this->model->selectOne($this->table,['id'=>$answerId]);
     
     }

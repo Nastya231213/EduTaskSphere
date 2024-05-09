@@ -120,10 +120,8 @@ class Task extends Controller
             $pupilId = $_SESSION['user']->userId;
             $flag = true;
             $allSubtasksOfTheTask = $taskModel->getAllSubtasks($id, $flag, $pupilId);
-
-        }else{
+        } else {
             $allSubtasksOfTheTask = $taskModel->getAllSubtasks($id, $flag);
-
         }
 
         $this->view('display-subtasks', ['subtasks' => $allSubtasksOfTheTask, 'role' => $userType]);
@@ -205,15 +203,23 @@ class Task extends Controller
             $userSolutions = $userModel->getAllSolutionsToTask($pupil->userId);
             foreach ($userSolutions as $theUserSolution) {
                 $data['solutions'][] = $theUserSolution;
-                
             }
         }
 
         $this->view('solvedTasks', $data);
     }
-    function answer($answerId){
-      $answerModel=new AnswerModel();
-      $answer=$answerModel->getAnswer($answerId);
+    function answer($taskId,$userId)
+    {
+        $taskModel = new TaskModel();
+        $userModel = new UserModel();
+
+        $theCurrentTask = $taskModel->getTaskById($taskId);
+   
+        $allSubtasksOfTheTask = $taskModel->getAllSubtasks($taskId,true,$userId);
+        $creatorOfTheTask = $userModel->findUserByUrlAdress($theCurrentTask->userId);
+    
+        $this->view('perform_task', ['task' => $theCurrentTask, 'user' => $creatorOfTheTask, 'subtasks' => $allSubtasksOfTheTask,'show_answers'=>true]);
+
 
     }
     function perfom($taskId, $save = '')
@@ -239,7 +245,7 @@ class Task extends Controller
                 }
             }
 
-            $this->view('perform_task', ['task' => $theCurrentTask, 'user' => $creatorOfTheTask, 'subtasks' => $allSubtasksOfTheTask]);
+            $this->view('perform_task', ['task' => $theCurrentTask, 'user' => $creatorOfTheTask, 'subtasks' => $allSubtasksOfTheTask,'show_answers'=>false]);
         }
     }
 }

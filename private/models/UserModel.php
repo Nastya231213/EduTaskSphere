@@ -61,7 +61,7 @@ class UserModel
         $query="SELECT users.firstName, users.lastName, tasks.title, answers_of_the_pupil.*
         FROM users
         JOIN answers_of_the_pupil ON users.userId = answers_of_the_pupil.pupilId
-        JOIN tasks on answers_of_the_pupil.taskId=tasks.task_id WHERE answers_of_the_pupil.pupilId = :pupil_id";
+        JOIN tasks on answers_of_the_pupil.taskId=tasks.task_id WHERE answers_of_the_pupil.pupilId = :pupil_id GROUP BY answers_of_the_pupil.taskId";
         $database->query($query);
         $database->bind("pupil_id",$user_id);
         $database->execute();

@@ -49,11 +49,6 @@
                     <td><?= $task->type ?></td>
                 </tr>
 
-
-
-
-
-
             <?php else : ?>
                 <h4>No tasks were found with this ID</h4>
             <?php endif; ?>

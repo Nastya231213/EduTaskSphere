@@ -14,8 +14,7 @@ class TaskModel extends Model
 
     public function getTaskById($task_id)
     {
-        $tableName = 'tasks';
-        return $this->selectOne($tableName, ['task_id' => $task_id]);
+        return $this->selectOne($this->tableName, ['task_id' => $task_id]);
     }
 
     public function getAllSubtasks($taskId, $flagToGetAnswers = false, $pupilId = null)
@@ -33,25 +32,19 @@ class TaskModel extends Model
 
                 $subtasks[$i]->choices = $this->getChoices($subtasks[$i]->subtaskId);
             }
-          
+            if ($flagToGetAnswers == 1 && isset($pupilId)) {
 
-            if ($flagToGetAnswers==1 && isset($pupilId)) {
-                $subtasks[$i]->answer=$this->getAnswerByPupilIdAndsubtaskId($subtasks[$i]->subtaskId,$pupilId);
-          
                 
+                $subtasks[$i]->answer = $this->getAnswerByPupilIdAndsubtaskId($subtasks[$i]->subtaskId, $pupilId);
             }
         }
-
-
-
         return $subtasks;
     }
-    public function getAnswerByPupilIdAndsubtaskId($subtaskId,$pupilId)
+    public function getAnswerByPupilIdAndsubtaskId($subtaskId, $pupilId)
     {
-        $tableName="answers_of_the_pupil";
+        $tableName = "answers_of_the_pupil";
 
-        return $this->selectOne($tableName,['subtaskId'=>$subtaskId,'pupilId'=>$pupilId]);
-
+        return $this->selectOne($tableName, ['subtaskId' => $subtaskId, 'pupilId' => $pupilId]);
     }
 
     public function getChoices($subtaskId)
@@ -118,17 +111,19 @@ class TaskModel extends Model
                     $answer = $data[$answerKey];
                 }
             }
-            if (!$this->addAnswerToSubtask($answer, $subtask->subtaskId, $typeOfAnswer,$data['pupilId'],$subtask->taskId)) {
+            if (!$this->addAnswerToSubtask($answer, $subtask->subtaskId, $typeOfAnswer, $data['pupilId'], $subtask->taskId)) {
                 return false;
             }
         }
     }
-    function addAnswerToSubtask($answer, $subtaskId, String $type,String $pupilId,String $taskId)
+    function addAnswerToSubtask($answer, $subtaskId, String $type, String $pupilId, String $taskId)
     {
-        
+
         $tableName = 'answers_of_the_pupil';
-        return $this->insert($tableName, [$type => $answer, 
-        'subtaskId' => $subtaskId,'pupilId'=>$pupilId,'taskId'=>$taskId]);
+        return $this->insert($tableName, [
+            $type => $answer,
+            'subtaskId' => $subtaskId, 'pupilId' => $pupilId, 'taskId' => $taskId
+        ]);
     }
 
     function isCompletedTaskByPupil($taskId, $pupilId)

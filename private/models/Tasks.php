@@ -8,9 +8,7 @@ abstract class Tasks
 {
 
     protected $model;
-
     protected $tableName = "tasks";
-    private $state;
 
     abstract public  function addSubtask(SubTask $subtask);
     public function __construct()

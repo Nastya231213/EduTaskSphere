@@ -41,7 +41,7 @@
                         <?= $solution->title ?>
                     </td>
                     <td><?= $solution->date ?></td>
-                    <td> <a href="<?= ROOT ?>/task/answer/<?=$solution->id?>">
+                    <td> <a href="<?= ROOT ?>/task/answer/<?=$solution->taskId?>/<?=$solution->pupilId?>">
                             <button class="btn btn-sm btn-info"> See answer</button>
                         </a>
                     </td>

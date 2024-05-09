@@ -36,8 +36,6 @@
                                     <input value="Add" name="submit" type="submit" class="btn btn-info">
                                 </center>
 
-
-
                             </div>
                         </div>
 
@@ -45,20 +43,20 @@
 
 
             </div>
-            </form>
+        </form>
 
-            <?= $pagination->display() ?>
-
-        <?php else : ?>
-            <h4 class="mb-5">Nobody was found</h4>
-        <?php endif ?>
+        <?= $pagination->display() ?>
 
     <?php else : ?>
-        <center>
+        <h4 class="mb-5">Nobody was found</h4>
+    <?php endif ?>
+
+<?php else : ?>
+    <center>
 
 
-            <h4 class="text-gray ">Enter indentifying information about a pupil</h4>
-        </center>
-        <br><br>
-    <?php endif; ?>
+        <h4 class="text-gray ">Enter indentifying information about a pupil</h4>
+    </center>
+    <br><br>
+<?php endif; ?>
 </div>

@@ -14,7 +14,7 @@ class TestStrategy implements SubTaskStrategy
 
     public function addToDatabase($test)
     {
-        if ($test instanceof TestTask) {
+        if ($test instanceof TestSubtask) {
             $model = new Model();
             $dataForSubtask['question'] = $test->getQuestion();
             $dataForSubtask['taskId'] = $test->getTaskId();

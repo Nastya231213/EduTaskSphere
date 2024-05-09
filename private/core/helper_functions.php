@@ -1,6 +1,6 @@
 <?php
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" & isset($_POST['tasks'])) {
   include('C:/xampp/htdocs/EduTaskSphere/private/models/Interpreter.php');
   include('C:/xampp/htdocs/EduTaskSphere/private/models/DeadlineFilter.php');
   include('C:/xampp/htdocs/EduTaskSphere/private/models/SubjectFilter.php');
