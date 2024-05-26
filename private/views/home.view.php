@@ -1,4 +1,4 @@
-<?php $this->view('includes/navigation') ?>
+<?php $this->view('includes/navigation',['title'=>'Home']) ?>
 <?php
 if (!isSignIn()) {
     $this->redirect('login');

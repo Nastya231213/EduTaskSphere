@@ -84,8 +84,6 @@ class Task extends Controller
                     $strategy->addToDatabase($multiplechoiceQuestion);
                     break;
             }
-
-
             if ($theCurrentTask->type == 'simple') {
                 $message = 'Simple task consists of the one subtask!';
                 $this->redirect('messagePage?message=' . $message);
@@ -208,19 +206,27 @@ class Task extends Controller
 
         $this->view('solvedTasks', $data);
     }
-    function answer($taskId,$userId)
+    function answer($taskId, $userId)
     {
         $taskModel = new TaskModel();
         $userModel = new UserModel();
 
+
         $theCurrentTask = $taskModel->getTaskById($taskId);
-   
-        $allSubtasksOfTheTask = $taskModel->getAllSubtasks($taskId,true,$userId);
+
+        $allSubtasksOfTheTask = $taskModel->getAllSubtasks($taskId, true, $userId);
+
+        if (isset($_POST) && count($_POST)>0) {
+            $teachersComments = array();
+            foreach ($allSubtasksOfTheTask as $subtask) {
+                $teachersComments[] = $_POST['comment' . $subtask->subtaskId];
+                
+            }
+            
+        }
         $creatorOfTheTask = $userModel->findUserByUrlAdress($theCurrentTask->userId);
-    
-        $this->view('perform_task', ['task' => $theCurrentTask, 'user' => $creatorOfTheTask, 'subtasks' => $allSubtasksOfTheTask,'show_answers'=>true]);
 
-
+        $this->view('perform_task', ['task' => $theCurrentTask, 'user' => $creatorOfTheTask, 'subtasks' => $allSubtasksOfTheTask, 'show_answers' => true]);
     }
     function perfom($taskId, $save = '')
     {
@@ -245,7 +251,7 @@ class Task extends Controller
                 }
             }
 
-            $this->view('perform_task', ['task' => $theCurrentTask, 'user' => $creatorOfTheTask, 'subtasks' => $allSubtasksOfTheTask,'show_answers'=>false]);
+            $this->view('perform_task', ['task' => $theCurrentTask, 'user' => $creatorOfTheTask, 'subtasks' => $allSubtasksOfTheTask, 'show_answers' => false]);
         }
     }
 }

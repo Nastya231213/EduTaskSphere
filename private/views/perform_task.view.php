@@ -105,8 +105,8 @@
             <div class="card rounded col-md-6 mt-5 mx-auto p-3 ">
 
                 <?php if ($show_answers) : ?>
-                    <h3 class="text-center my-3" >Teacher's Feedback</h3>
-           
+                    <h3 class="text-center my-3">Teacher's Feedback</h3>
+
                     <label for="grade<?= $subtask->subtaskId ?>">
                         <h5>Grade:</h5>
                     </label>

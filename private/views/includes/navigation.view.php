@@ -22,14 +22,12 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="<?=ROOT?>/home">Home</a>
         </li>
+ 
         <li class="nav-item">
-          <a class="nav-link" href="#">Teacher</a>
+          <a class="nav-link" href="<?=ROOT?>/task/display">Tasks</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Tasks</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Solutions</a>
+          <a class="nav-link" href="<?=ROOT?>/task/solved">Solutions</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<?=ROOT?>/notification">Notifications</a>

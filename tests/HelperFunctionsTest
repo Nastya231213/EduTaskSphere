@@ -1,0 +1,92 @@
+<?php
+use PHPUnit\Framework\TestCase;
+include('../private/core/autoload.php');
+
+class FunctionsTest extends TestCase
+{
+    public function testGetMessageWithSuccessMessage()
+    {
+        // Arrange
+        $_SESSION['messageSuccess'] = 'Success message';
+
+        // Act
+        $result = getMessage([]);
+
+        // Assert
+        $this->assertArrayHasKey('messageSuccess', $result);
+        $this->assertEquals('Success message', $result['messageSuccess']);
+        $this->assertArrayNotHasKey('messageError', $result);
+    }
+
+    public function testGetMessageWithErrorMessage()
+    {
+        $_SESSION['messageError'] = 'Error message';
+
+        $result = getMessage([]);
+
+        $this->assertArrayHasKey('messageError', $result);
+        $this->assertEquals('Error message', $result['messageError']);
+        $this->assertArrayNotHasKey('messageSuccess', $result);
+    }
+
+    public function testGetUserInformationWithExistingKey()
+    {
+        $_SESSION['user'] = (object)['userId' => 1, 'role' => 'teacher'];
+
+        // Act
+        $result = getUserInformation('userId');
+
+        // Assert
+        $this->assertEquals(1, $result);
+    }
+
+    public function testGetUserInformationWithNonExistingKey()
+    {
+        $_SESSION['user'] = (object)['userId' => 1, 'role' => 'teacher'];
+
+        $result = getUserInformation('nonExistingKey', 'defaultValue');
+
+        $this->assertEquals('defaultValue', $result);
+    }
+
+    public function testGetRoleWithExistingUser()
+    {
+        $_SESSION['user'] = (object)['userId' => 1, 'role' => 'teacher'];
+
+        $result = getRole();
+
+        $this->assertEquals('teacher', $result);
+    }
+
+    public function testGetRoleWithNonExistingUser()
+    {
+        $result = getRole();
+
+        $this->assertNull($result);
+    }
+
+    public function testIsSignInWithExistingUser()
+    {
+    
+        $_SESSION['user'] = (object)['userId' => 1, 'role' => 'teacher'];
+
+        $result = isSignIn();
+
+        $this->assertTrue($result);
+    }
+
+    public function testIsSignInWithNonExistingUser()
+    {
+        $result = isSignIn();
+
+        $this->assertFalse($result);
+    }
+
+    public function testRandomString()
+    {
+        $result = randomString(10);
+
+        $this->assertEquals(10, strlen($result));
+    }
+
+}
