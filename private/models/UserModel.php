@@ -1,6 +1,10 @@
 
 
 <?php
+/**
+ * @class UserModel
+ * @brief Клас, що відповідає за роботу з користувачами в базі даних.
+ */
 class UserModel
 {
 

@@ -1,9 +1,21 @@
 
 
 
-<?php 
+<?php
 
+/**
+ * @interface Command
+ * @brief Інтерфейс для реалізації паттерну "Команда".
+ *
+ * Інтерфейс Command визначає метод execute(), який повинні реалізовувати всі команди.
+ */
 
-interface Command{
+interface Command
+{
+    /**
+     * @brief Виконує команду.
+     *
+     * Метод, який виконує певну дію, визначену командою.
+     */
     public function execute();
 }

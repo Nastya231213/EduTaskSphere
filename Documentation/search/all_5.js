@@ -1,0 +1,6 @@
+var searchData=
+[
+  ['evaluateanswer_0',['evaluateAnswer',['../class_multiple_choice_strategy.html#a4f5071d83b0dec4d916c4974df6d4795',1,'MultipleChoiceStrategy\evaluateAnswer()'],['../class_open_ended_strategy.html#ad82d7732082bf1b038a3eabe444c56d1',1,'OpenEndedStrategy\evaluateAnswer()'],['../interface_sub_task_strategy.html#a4c2a73af73da98ce577b25664a52d1b0',1,'SubTaskStrategy\evaluateAnswer()'],['../class_test_strategy.html#a13997d5fa02bd55eb7a32654b659db76',1,'TestStrategy\evaluateAnswer()']]],
+  ['execute_1',['execute',['../class_database.html#a545eb775bb2abe176153969b5a20f99f',1,'Database\execute()'],['../class_add_pupil_to_teacher.html#aec9f6ac7891d53770ac0d55b82518143',1,'AddPupilToTeacher\execute()'],['../interface_command.html#ae4f3fb779ca665b6b320482e8929b81e',1,'Command\execute()'],['../class_delete_pupil_from_teacher.html#a03690b09877a8fb6ca2f704c3a6351ec',1,'DeletePupilFromTeacher\execute()'],['../class_delete_task_from_pupil.html#a142353754dd461a40f6a5385acd4473c',1,'DeleteTaskFromPupil\execute()'],['../class_send_task_to_pupil.html#a8d04e793d4c934e1a699ded9844d5cb9',1,'SendTaskToPupil\execute()']]],
+  ['executecommand_2',['executeCommand',['../class_command_invoker.html#a9d180292933d468e02aac223755c7145',1,'CommandInvoker']]]
+];

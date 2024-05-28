@@ -1,55 +1,144 @@
 
-<?php 
-class MultipleChoiceTask implements SubTask {
+<?php
+/**
+ * @file MultipleChoiceTask.php
+ * @brief Файл містить визначення класу MultipleChoiceTask.
+ */
+
+/**
+ * @class MultipleChoiceTask
+ * @brief Клас для створення та управління підзавданнями типу "множинний вибір".
+ *
+ * Клас MultipleChoiceTask реалізує інтерфейс SubTask та забезпечує зберігання, налаштування і доступ до питань, варіантів відповідей та правильних відповідей.
+ */
+class MultipleChoiceTask implements SubTask
+{
+    /**
+     * @var array $choices Варіанти відповідей на питання.
+     */
     private $choices;
+
+    /**
+     * @var array $correctAnswers Правильні відповіді на питання.
+     */
     private $correctAnswers;
+
+    /**
+     * @var MultipleChoiceStrategy $strategy Стратегія для обробки підзавдань типу "множинний вибір".
+     */
     private $strategy;
+
+    /**
+     * @var string $question Текст питання.
+     */
     private $question;
+
+    /**
+     * @var int $taskId Ідентифікатор завдання.
+     */
     private $taskId;
 
-    public function __construct($question, $choices, $correctAnswers,$taskId) {
+    /**
+     * @brief Конструктор класу MultipleChoiceTask.
+     *
+     * @param string $question Текст питання.
+     * @param array $choices Варіанти відповідей.
+     * @param array $correctAnswers Правильні відповіді.
+     * @param int $taskId Ідентифікатор завдання.
+     */
+    public function __construct($question, $choices, $correctAnswers, $taskId)
+    {
         $this->question = $question;
         $this->choices = $choices;
-        $this->taskId=$taskId;
+        $this->taskId = $taskId;
         $this->correctAnswers = $correctAnswers;
         $this->setStrategy(new MultipleChoiceStrategy());
     }
 
-    public function setTaskId($taskId) {
+    /**
+     * @brief Встановлює ідентифікатор завдання.
+     *
+     * @param int $taskId Ідентифікатор завдання.
+     */
+    public function setTaskId($taskId)
+    {
         $this->taskId = $taskId;
     }
-
-    public function getTaskId() {
+    /**
+     * @brief Повертає ідентифікатор завдання.
+     *
+     * @return int Ідентифікатор завдання.
+     */
+    public function getTaskId()
+    {
         return $this->taskId;
     }
-    public function setChoices($choices) {
+    /**
+     * @brief Встановлює варіанти відповідей на питання.
+     *
+     * @param array $choices Варіанти відповідей.
+     */
+    public function setChoices($choices)
+    {
         $this->taskId = $choices;
     }
-
-    public function getChoices() {
+    /**
+     * @brief Повертає варіанти відповідей на питання.
+     *
+     * @return array Варіанти відповідей.
+     */
+    public function getChoices()
+    {
         return $this->choices;
     }
-
-    public function setQuestion($question) {
+    /**
+     * @brief Встановлює текст питання.
+     *
+     * @param string $question Текст питання.
+     */
+    public function setQuestion($question)
+    {
         $this->question = $question;
     }
-
-    public function getQuestion() {
+    /**
+     * @brief Повертає текст питання.
+     *
+     * @return string Текст питання.
+     */
+    public function getQuestion()
+    {
         return $this->question;
     }
-
-    public function setCorrectAnswers($correctAnswers) {
+    /**
+     * @brief Встановлює правильні відповіді на питання.
+     *
+     * @param array $correctAnswers Правильні відповіді.
+     */
+    public function setCorrectAnswers($correctAnswers)
+    {
         $this->correctAnswers = $correctAnswers;
     }
-
-    public function getCorrectAnswers() {
+   /**
+     * @brief Повертає правильні відповіді на питання.
+     *
+     * @return array Правильні відповіді.
+     */
+    public function getCorrectAnswers()
+    {
         return $this->correctAnswers;
     }
-    public function setStrategy($strategy) {
+        /**
+     * @brief Встановлює стратегію для обробки підзавдань типу "множинний вибір".
+     *
+     * @param MultipleChoiceStrategy $strategy Стратегія для обробки підзавдань.
+     */
+    public function setStrategy($strategy)
+    {
         $this->strategy = $strategy;
     }
 
-    public function getStrategy() {
+    public function getStrategy()
+    {
         return $this->strategy;
     }
 }

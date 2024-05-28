@@ -1,15 +1,50 @@
 <?php
-//Sigleton
+/**
+ * @file Pagination.php
+ * @brief Файл містить визначення класу Pagination.
+*/
+/**
+ * @class Pagination
+ * Singleton Pagination class for generating pagination links.
+ */
 class Pagination
 {
+    /**
+     * @var Pagination|null Instance of Pagination.
+     */
     private static $instance;
 
+    /**
+     * @var int Current start page number.
+     */
     public $start = 1;
+
+    /**
+     * @var int Current end page number.
+     */
     public $end = 1;
+
+    /**
+     * @var int Current page number.
+     */
     public $pageNum = 1;
+
+    /**
+     * @var int Offset from which data should be fetched.
+     */
     public $fromWhich = 0;
 
+    /**
+     * @var array Links for pagination.
+     */
     public $links = array();
+
+    /**
+     * Retrieves the instance of Pagination class.
+     * @param int $extraPages Additional pages to show in pagination.
+     * @param int $limit Number of items per page.
+     * @return Pagination The Pagination instance.
+     */
     public static function getInstance($extraPages = 1, $limit = 8)
     {
         if (self::$instance === null) {
@@ -19,6 +54,11 @@ class Pagination
         return self::$instance;
     }
 
+    /**
+     * Pagination constructor.
+     * @param int $extraPages Additional pages to show in pagination.
+     * @param int $lim Number of items per page.
+     */
     public function __construct($extraPages = 1, $lim = 8)
     {
         $pageNumber = isset($_GET['page']) ? (int) $_GET['page'] : 1;
@@ -40,8 +80,12 @@ class Pagination
         $this->links['next'] = $nextLink;
     }
 
+    /**
+     * Displays the pagination links.
+     */
     public function display()
-    {?>
+    {
+?>
         <br class="clearfix">
         <div>
             <nav aria-label="Page navigation example">
@@ -55,13 +99,8 @@ class Pagination
             </nav>
         </div>
         <br>
-
-
 <?php
     }
 }
-
-
-
-
 ?>
+

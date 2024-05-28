@@ -1,15 +1,29 @@
 
 <?php
 
-
+/**
+ * @class Validation
+ * @brief Клас для валідації даних користувачів та завдань.
+ */
 class Validation
 {
-    private $errors;
+    private $errors; ///< Помилки валідації.
 
+    /**
+     * @brief Отримує помилки валідації.
+     * 
+     * @return array Масив помилок валідації.
+     */
     public function getErrors(){
         return $this->errors;
     }
 
+    /**
+     * @brief Валідує дані користувача.
+     * 
+     * @param array $data Дані користувача для валідації.
+     * @return bool Результат валідації: true, якщо дані валідні, false у протилежному випадку.
+     */
     public function validateUser($data)
     {
         $userModel=new UserModel();
@@ -29,7 +43,6 @@ class Validation
             $this->errors['email'] = "That email is already in";
         }
 
-
         if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL) || empty($data['email'])) {
             $this->errors['email'] = "Email isn't appropriate";
         }
@@ -44,11 +57,17 @@ class Validation
         if (count($this->errors) == 0) {
             return true;
         }
-
         return false;
     }
+
+    /**
+     * @brief Валідує дані завдання.
+     * 
+     * @param array $data Дані завдання для валідації.
+     * @return bool Результат валідації: true, якщо дані валідні, false у протилежному випадку.
+     */
     public function validateTask($data){
-                $this->errors = array();
+        $this->errors = array();
 
         if (!preg_match('/^[a-zA-Z\s]*$/', $data['title']) || empty($data['title'])) {
             $this->errors['title'] = "Only letters can be in the title";

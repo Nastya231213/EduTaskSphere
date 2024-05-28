@@ -1,9 +1,21 @@
 <?php
 
-
+/**
+ * @file pupils.php
+ * @brief Клас для управління учнями, пов'язаними з вчителем.
+ */
+/**
+ * Контролер Pupils забезпечує функціонал для перегляду, додавання та видалення учнів
+ * для поточного вчителя.
+ */
 class Pupils extends Controller
 {
-
+    /**
+     * @brief Відображає список учнів для поточного вчителя.
+     * 
+     * Цей метод отримує список усіх учнів, пов'язаних з вчителем, за допомогою
+     * моделі UserModel, обробляє пагінацію та відображає дані на сторінці.
+     */
     function index()
     {
         $userModel = new UserModel();
@@ -14,11 +26,17 @@ class Pupils extends Controller
         $data['pupils'] = $userModel->getAllPupilsByTeacherId($_SESSION['user']->userId);
         $data['pagination'] = $pagination;
 
-        $data=getMessage($data);
+        $data = getMessage($data);
 
         $this->view("teacher'sPupilsPage", $data);
     }
-
+    /**
+     * @brief Додає нового учня до списку вчителя.
+     * 
+     * Метод обробляє POST-запит для додавання нового учня до списку вчителя.
+     * Якщо у GET-запиті присутній ключ для пошуку, він також обробляє пошук
+     * учнів за ключовими словами.
+     */
     function addPupil()
     {
         $pagination = Pagination::getInstance();
@@ -48,6 +66,14 @@ class Pupils extends Controller
         $data['pagination'] = $pagination;
         $this->view("addPupil", $data);
     }
+    /**
+     * @brief Видаляє учня зі списку вчителя.
+     * 
+     * Метод видаляє учня з списку вчителя за допомогою командного патерну
+     * і перенаправляє на сторінку зі списком учнів.
+     * 
+     * @param int $id Ідентифікатор учня, якого потрібно видалити.
+     */
     function delete($id)
     {
         $teacherId = $_SESSION['user']->userId;

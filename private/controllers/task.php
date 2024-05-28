@@ -1,14 +1,32 @@
 
 
 <?php
+/**
+ * @file task.php
+ * @brief Містить клас, який керує процесом обробки створення, відображення, додавання підзадач, 
+ */
 
+/**
+ * @class Task
+ * @brief Контролер для обробки завдань.
+ *
+ * Клас Task розширює базовий клас Controller і відповідає за обробку створення, відображення, додавання підзадач, 
+ * прийняття, відхилення та виконання завдань.
+ */
 class Task extends Controller
 {
 
     function index()
     {
     }
-
+    /**
+     * @brief Метод для додавання нового завдання.
+     *
+     * Цей метод обробляє форму додавання завдання, валідує введені дані, створює нове завдання і перенаправляє на 
+     * сторінку додавання підзадач.
+     *
+     * @return void
+     */
     function add()
     {
         $errors = array();
@@ -30,7 +48,15 @@ class Task extends Controller
         }
         $this->view('createTask', ['errors' => $errors]);
     }
-
+    /**
+     * @brief Метод для додавання підзадач до завдання.
+     *
+     * Цей метод дозволяє користувачу додавати підзадачі до створеного завдання. Включає валідацію введених даних і 
+     * додавання підзадач у базу даних.
+     *
+     * @param string $id Ідентифікатор завдання.
+     * @return void
+     */
     function addSubtasks($id = '')
     {
         $message = "";
@@ -94,7 +120,13 @@ class Task extends Controller
 
         $this->view('simpleTask', ['task' => $theCurrentTask, 'user' => $creatorOfTheTask, 'pageTab' => $pageTab, 'message' => $message]);
     }
-
+    /**
+     * @brief Метод для відображення завдань.
+     *
+     * Цей метод отримує всі завдання для поточного користувача і відображає їх на сторінці.
+     *
+     * @return void
+     */
     function display()
     {
 
@@ -107,7 +139,14 @@ class Task extends Controller
         $data['tasks'] = $taskModel->getTasksForDisplaying($data['role'], $userId);
         $this->view('display-task', $data);
     }
-
+    /**
+     * @brief Метод для відображення підзадач.
+     *
+     * Цей метод отримує всі підзадачі для вказаного завдання і відображає їх на сторінці.
+     *
+     * @param string $id Ідентифікатор завдання.
+     * @return void
+     */
     function subtasks($id = '')
     {
         $taskModel = new TaskModel();
@@ -125,7 +164,14 @@ class Task extends Controller
         $this->view('display-subtasks', ['subtasks' => $allSubtasksOfTheTask, 'role' => $userType]);
     }
 
-
+    /**
+     * @brief Метод для надсилання завдання учням.
+     *
+     * Цей метод дозволяє вчителю надіслати завдання учням.
+     *
+     * @param string $id Ідентифікатор завдання.
+     * @return void
+     */
     function sendToPupils($id = '')
     {
         $pagination = Pagination::getInstance();
@@ -156,7 +202,14 @@ class Task extends Controller
         }
         $this->view('sendToPupils', ['task' => $theCurrentTask, 'user' => $creatorOfTheTask, 'pupils' => $pupils, 'pagination' => $pagination]);
     }
-
+    /**
+     * @brief Метод для прийняття завдання учнем.
+     *
+     * Цей метод дозволяє учню прийняти завдання.
+     *
+     * @param string $taskId Ідентифікатор завдання.
+     * @return void
+     */
     function accept($taskId)
     {
 
@@ -171,6 +224,16 @@ class Task extends Controller
 
         $this->redirect('task/display');
     }
+
+    /**
+     * @brief Метод для відхилення завдання учнем.
+     *
+     * Цей метод дозволяє учню відхилити завдання.
+     *
+     * @param string $taskId Ідентифікатор завдання.
+     * @param string $userId Ідентифікатор користувача.
+     * @return void
+     */
     function reject($taskId, $userId)
     {
 
@@ -189,7 +252,13 @@ class Task extends Controller
         }
         $this->redirect('task/display');
     }
-
+    /**
+     * @brief Метод для відображення вирішених завдань.
+     *
+     * Цей метод отримує всі вирішені завдання для учнів вчителя і відображає їх на сторінці.
+     *
+     * @return void
+     */
     function solved()
     {
         $userModel = new UserModel();
@@ -206,6 +275,15 @@ class Task extends Controller
 
         $this->view('solvedTasks', $data);
     }
+    /**
+     * @brief Метод для додавання коментарів до підзадач.
+     *
+     * Цей метод дозволяє вчителю додавати коментарі до підзадач учня.
+     *
+     * @param string $taskId Ідентифікатор завдання.
+     * @param string $userId Ідентифікатор користувача.
+     * @return void
+     */
     function answer($taskId, $userId)
     {
         $taskModel = new TaskModel();
@@ -216,18 +294,27 @@ class Task extends Controller
 
         $allSubtasksOfTheTask = $taskModel->getAllSubtasks($taskId, true, $userId);
 
-        if (isset($_POST) && count($_POST)>0) {
+        if (isset($_POST) && count($_POST) > 0) {
             $teachersComments = array();
             foreach ($allSubtasksOfTheTask as $subtask) {
                 $teachersComments[] = $_POST['comment' . $subtask->subtaskId];
-                
             }
-            
         }
         $creatorOfTheTask = $userModel->findUserByUrlAdress($theCurrentTask->userId);
 
         $this->view('perform_task', ['task' => $theCurrentTask, 'user' => $creatorOfTheTask, 'subtasks' => $allSubtasksOfTheTask, 'show_answers' => true]);
     }
+
+    
+    /**
+     * @brief Метод для виконання завдання учнем.
+     *
+     * Цей метод дозволяє учню виконувати завдання і зберігати відповіді.
+     *
+     * @param string $taskId Ідентифікатор завдання.
+     * @param string $save Прапорець для збереження відповіді.
+     * @return void
+     */
     function perfom($taskId, $save = '')
     {
 
